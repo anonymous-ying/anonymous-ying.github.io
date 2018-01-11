@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机网络基础," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="IP协议分析，IP地址\子网掩码划分">
+<meta name="keywords" content="计算机网络基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IP">
+<meta property="og:url" content="http://yoursite.com/2018/01/04/IP/index.html">
+<meta property="og:site_name" content="BEHIND THE GROWTH">
+<meta property="og:description" content="IP协议分析，IP地址\子网掩码划分">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/01/04/IP/ip.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/04/IP/netmask.png">
+<meta property="og:updated_time" content="2018-01-09T06:10:51.993Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IP">
+<meta name="twitter:description" content="IP协议分析，IP地址\子网掩码划分">
+<meta name="twitter:image" content="http://yoursite.com/2018/01/04/IP/ip.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/04/IP/"/>
+
+
+
+
+
+  <title>IP | BEHIND THE GROWTH</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BEHIND THE GROWTH</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一步一个脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/IP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang YingYing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BEHIND THE GROWTH">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IP</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T09:28:51+08:00">
+                2018-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络基础/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  IP协议分析，IP地址\子网掩码划分
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>IP(Internet Protocol)</strong>：网际协议，实现计算机网络连接之间进行通信</p>
+<center>
+
+<h2 id="数据包"><a href="#数据包" class="headerlink" title="数据包"></a>数据包</h2><p></p></center><p></p>
+<ul>
+<li>面向无连接，以分组的形式进行传输，可以通过不同路径到达目的</li>
+<li>每一个包(分组)，都作为一个独立的报文传送</li>
+<li>数据包长度：30000字节(Bytes), 1字节 = 8位二进制<br><center>数据包格式</center><br><img src="/2018/01/04/IP/ip.png" alt="ip"><br><strong>版本</strong>：ipv4(0x4), ipv6<br><strong>首部长度</strong>：用于确定数据报中的偏移位置<br><strong>总长度</strong>：结合首部长度字段，就可以知道IP数据中数据内容的起始位置和长度<br><strong>标识、标志、片偏移</strong>：用于数据的分片重组<br><strong>生存时间</strong>：数据报文可以经过的最大路由跳数，由TTL(32/64)控制，经过一个路由-1，当该字段为0时数据报被丢弃，并发送ICMP通知源主机<br><strong>头校验和</strong>：检错，确认封包被正确无误的接收到</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>分片/重组</strong><br><strong>原因：数据链路层具有最大传输单元(MTU)特性，限制了数据帧的最大长度，如过数据数据包长度超过了MTU，数据包就要进行分片</strong></p>
+<ul>
+<li>源IP：负责分片</li>
+<li>目的IP：负责校验重组</li>
+<li>透明传输</li>
+<li>分片过的数据包可能不止一次的再进行分片，避免丢包</li>
+</ul>
+<p><hr></p>
+<center>
+
+<h2 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h2><p></p></center><p></p>
+<p><div><center><strong>32位的二进制数组成，采用点分的十进制表示</strong><br>11111111.11111111.11111111.11111111 &lt;=&gt; 255.255.255.255</center></div></p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p><strong>标识码(ID)</strong>：网络ID(由子网掩码划分)、主机ID<br>&nbsp;&nbsp;&nbsp;&nbsp;同个网络断使用同一个网络ID<br>&nbsp;&nbsp;&nbsp;&nbsp;每台独立的主机使用一个主机ID</p>
+<ul>
+<li><strong>A类：</strong>第一个字节(8位二进制)，为网络ID<br>IP地址范围：1.0.0.0 ～ 126.255.255.255<br>默认子网掩码：255.0.0.0<br>私有地址：10.0.0.0 ～ 10.255.255.255<br>每个网段容纳主机数：256^3-2</li>
+<li><strong>B类：</strong>第一第二字节为网络ID<br>IP地址范围：128.0.0.0 ~ 191.255.255.255<br>默认子网掩码：255.255.0.0<br>私有地址：172.16.0.0 ～ 172.31.255.255<br>每个网段容纳主机数：256^2-2</li>
+<li><strong>C类：</strong>第一第二第三字节为网络ID<br>IP地址范围：192.0.0.0 ~ 223.255.255.255<br>默认子网掩码：255.255.255.0<br>私有地址：192.168.0.0 ～ 192.168.255.255<br>每个网段容纳主机数：256-2</li>
+<li><strong>D类：</strong>不分网络ID、主机ID，用于组播<br>IP地址范围：224.0.0.0 ~ 239.255.255.255</li>
+<li><strong>E类：</strong>不分网络ID、主机ID，网络保留段<br>IP地址范围：240.0.0.0 ~ 255.255.255.254</li>
+<li><strong>特殊地址</strong><br><strong>169.254.x.x</strong>：DHCP自动获取IP错误返回地址<br><strong>源IP地址</strong>每个网段的第一个IP地址，表示网段本身。0.0.0.0表示当前主机<br><strong>广播地址</strong>：每个网段的最后一个IP(255)，向所有可通信的主机发送数据，容易造成网络负担，一般路由器都阻止该报文<br><strong>环回地址</strong>127.0.0.0 ~ 127.255.255.255，主要用来测试主机是否能正常工作(127.0.0.1)</li>
+</ul>
+<p><hr></p>
+<center>
+
+<h2 id="子网掩码-netmask"><a href="#子网掩码-netmask" class="headerlink" title="子网掩码(netmask)"></a>子网掩码(netmask)</h2><p></p></center><br><strong>用于划分网络ID\网段，对应四个字节(32位)</strong><br>一般：255.0.0.0/8 | 255.255.0.0/16 | 255.255.255.0/24 | 255.255.255.255/单台主机<br>一个字节(二进制)：11111111<br>2^7 + 2^6 + 2^5 + 2^4 + 2^3 + 2^2 + 2^1 + 2^0 &lt;=&gt; 128+64+32+16+8+4+2+1 = 255<p></p>
+<p><div><center>子网划分(B类开始)</center></div><br><img src="/2018/01/04/IP/netmask.png" alt="mask"><br>255.255.255.0 -&gt; 容纳254台：256-2(0~255 = 256, 排除第一个最后一个-2)，C类<br>&nbsp;&nbsp;&nbsp;&nbsp;(192.168.1.1/24 0-255)<br>255.255.255.128 -&gt; 容纳126台：256-128-2<br>&nbsp;&nbsp;&nbsp;&nbsp;(192.168.1.1/25 0-128)<br>255.255.255.192(128+64) -&gt; 容纳62台：256-192-2<br>&nbsp;&nbsp;&nbsp;&nbsp;(192.168.1.1/26 0-64)<br>255.255.255.224(128+64+32) -&gt; 容纳30台：256-224-2<br>&nbsp;&nbsp;&nbsp;&nbsp;(192.168.1.1/27 0-32)<br>255.255.255.240(128+64+32+16) -&gt; 容纳14台：256-240-2<br>&nbsp;&nbsp;&nbsp;&nbsp;(192.168.1.1/28 0-16)<br>255.255.255.248(128+64+32+16+8) -&gt; 容纳6台：256-248-2<br>&nbsp;&nbsp;&nbsp;&nbsp;(192.168.1.1/29 0-8)<br>255.255.255.252(128+64+32+16+8+4) -&gt; 容纳2台：256-252-2<br>&nbsp;&nbsp;&nbsp;&nbsp;(192.168.1.1/30 0-4)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机网络基础/" rel="tag"><i class="fa fa-tag"></i> 计算机网络基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/04/OSI七层模型/" rel="next" title="OSI七层模型">
+                <i class="fa fa-chevron-left"></i> OSI七层模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/04/Socket模块/" rel="prev" title="TCP/UDP、Socket模块">
+                TCP/UDP、Socket模块 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Wang YingYing" />
+            
+              <p class="site-author-name" itemprop="name">Wang YingYing</p>
+              <p class="site-description motion-element" itemprop="description">自己选的路，跪着是走不完的</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据包"><span class="nav-number">1.</span> <span class="nav-text">数据包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址"><span class="nav-number">2.</span> <span class="nav-text">IP地址</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分类"><span class="nav-number">2.1.</span> <span class="nav-text">分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子网掩码-netmask"><span class="nav-number">3.</span> <span class="nav-text">子网掩码(netmask)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang YingYing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </div>
+
+<!--  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

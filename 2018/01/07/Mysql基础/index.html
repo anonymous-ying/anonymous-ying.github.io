@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Mysql," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Mysql基本操作-用户管理，库表操作以及常用函数">
+<meta name="keywords" content="Mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql基础">
+<meta property="og:url" content="http://yoursite.com/2018/01/07/Mysql基础/index.html">
+<meta property="og:site_name" content="BEHIND THE GROWTH">
+<meta property="og:description" content="Mysql基本操作-用户管理，库表操作以及常用函数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/01/07/Mysql基础/mysql.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/07/Mysql基础/groupby.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/07/Mysql基础/str.png">
+<meta property="og:updated_time" content="2018-01-11T02:32:41.679Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql基础">
+<meta name="twitter:description" content="Mysql基本操作-用户管理，库表操作以及常用函数">
+<meta name="twitter:image" content="http://yoursite.com/2018/01/07/Mysql基础/mysql.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/07/Mysql基础/"/>
+
+
+
+
+
+  <title>Mysql基础 | BEHIND THE GROWTH</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BEHIND THE GROWTH</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一步一个脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/07/Mysql基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang YingYing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BEHIND THE GROWTH">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mysql基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T17:48:28+08:00">
+                2018-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据存储/" itemprop="url" rel="index">
+                    <span itemprop="name">数据存储</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Mysql基本操作-用户管理，库表操作以及常用函数
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>Mysql</strong></p>
+<ul>
+<li><strong>关系型数据库</strong>(Relational Database Management System)</li>
+<li>三层模型：<br>&nbsp;&nbsp;&nbsp;&nbsp;库(schema)：存放数据表<br>&nbsp;&nbsp;&nbsp;&nbsp;表(table)：存放数据<br>&nbsp;&nbsp;&nbsp;&nbsp;字段(field)：数据表头<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列(column)、行(row)</li>
+</ul>
+<p><img src="/2018/01/07/Mysql基础/mysql.png" alt="table"></p>
+<ul>
+<li><strong>查看命令帮助</strong>：help SQLCOMMAND</li>
+<li><strong>命令结束符号</strong>：<strong>;</strong></li>
+</ul>
+<center>
+
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><p></p></center><br>存放Mysql用户信息的表：<strong>mysql.user</strong><p></p>
+<h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><ul>
+<li><strong>mysql&gt; CREATE USER ‘USER’@’HOST’ IDENTIFIED BY ‘PWD’;</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;自带创建用户语句<br>&nbsp;&nbsp;&nbsp;&nbsp;自动调用password()函数对密码进行MD5加密</li>
+<li><strong>mysql&gt; grant all privileges on DB.TABLE to ‘USER’@’HOST’ identified by ‘PWD’</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;授权语句</li>
+<li><strong>mysql&gt; inset into mysql.user(Host, User, Password) values(‘localhost’, ‘inserin’, password(‘123456’))</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;插入数据语句</li>
+</ul>
+<h3 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h3><ul>
+<li><strong>$ mysqladmin -u USER password NEWPWD</strong></li>
+<li><strong>mysql&gt; set password for ‘USER’@’HOST’ = password(NEWPWD)</strong></li>
+<li><strong>mysql&gt; update mysql.user set Password=PWD where User=USER</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;不指定where将所有Password字段都修改</li>
+</ul>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><ul>
+<li><strong>mysql&gt; drop user ‘USER’@’HOST’</strong></li>
+</ul>
+<center>
+
+<h2 id="库表操作"><a href="#库表操作" class="headerlink" title="库表操作"></a>库表操作</h2><p></p></center><p></p>
+<h3 id="库管理"><a href="#库管理" class="headerlink" title="库管理"></a>库管理</h3><ul>
+<li><strong>mysql&gt; show databases;</strong>：查看当前可以操作的所有库</li>
+<li><strong>mysql&gt; create database DBNAME;</strong>：创建一个新的数据库</li>
+<li><strong>mysql&gt; drop database DBNAME;</strong>：删除一个可操作的库</li>
+<li><strong>mysql&gt; use DBNAME;</strong>：使用一个可操作的库</li>
+</ul>
+<h3 id="表管理"><a href="#表管理" class="headerlink" title="表管理"></a>表管理</h3><ul>
+<li><strong>[DBNAME]&gt; show tables;</strong>：查看当前库下的所有可操作的表</li>
+<li><strong>[DBNAME]&gt; create table TBNAME(field type attr, …)</strong>：创建一张新表</li>
+</ul>
+<pre><code>                  TYPE
+整数
+int(m)：4个字节 范围(-2147483648~2147483647)
+小数
+float(m,d)：单精度 8位精度(4字节) 
+double(m,d)：双精度 16位精度(8)字节
+         m-总个数、d-小数位
+字符串
+char(n)：固定长度，最多255个字符，字符串末尾不能有空格
+     若存入字符数小于n，则以空格补于其后，查询之时再将空格去掉。检索速度比varchar快
+varchar(n)：固定长度，最多65535个字符
+text：可变长度，最多65535个字符
+日期
+date: &apos;year-month-day&apos;
+time: &apos;hour-minute-second&apos;
+datetime: &apos;year-month-day hour-minute-second&apos;
+                ATTR - 属性
+NULL：可以为空
+NOT NULL：不可以为空
+DEFAULT：默认值
+PRIMARY KEY：主键
+AUTO_INCREMENT：自动递增(整数类型)
+UNSIGEND：无符号
+</code></pre><ul>
+<li><strong>[DBNAME]&gt; alter table TBNAME [options];</strong>：修改表字段</li>
+</ul>
+<pre><code>        options
+add：增加字段
+    alter table TBNAME add FIELD ATTER
+change：修改字段名称
+    alter table TBNAME change OLDFIELD NEWFIELD ATTR
+modify:修改字段类型
+    alter table TBNAME modify FIELD NEWATTR
+drop：删除某个字段
+    alter table TBNAME drop FIELD
+</code></pre><ul>
+<li><strong>[DBNAME]&gt; desc TBNAME;</strong>：<strong>查看</strong>该表的表结构(字段信息)</li>
+<li><strong>[DBNAME]&gt; insert into TBNAME(field,…) values(v1,…),(v2,…),…;</strong>：向表中<strong>写入</strong>数据</li>
+<li><strong>[DBNAME]&gt; update TBNAME set FIELD=VALUE where FILED=VALUE;</strong>：<strong>修改</strong>表中对应where FIELD=VALUE的行<br>&nbsp;&nbsp;&nbsp;&nbsp;不使用where精确匹配行将会修改所有行</li>
+<li><strong>[DBNAME]&gt; delete from TBNAME where FIELD=VALUE;</strong>：删除字段相对应的行<br>&nbsp;&nbsp;&nbsp;&nbsp;不使用where精确匹配行将会删除所有数据<br>&nbsp;&nbsp;&nbsp;&nbsp;用于删除表中的数据</li>
+<li><strong>[DBNAME]&gt; drop table TBNAME;</strong>：删除一张表</li>
+</ul>
+<h3 id="数据查询"><a href="#数据查询" class="headerlink" title="数据查询"></a>数据查询</h3><p><strong>select *[filed] from TBNAME [where condition]</strong></p>
+<p><center>子语句</center></p>
+<ul>
+<li>where：精确查询</li>
+<li>like：模糊查询<br>  &nbsp;&nbsp;&nbsp;&nbsp;% - 0或多<br>  &nbsp;&nbsp;&nbsp;&nbsp;_ - 任意一个<br>  &nbsp;&nbsp;&nbsp;&nbsp;[] - 列表内任意一个</li>
+<li>比较<pre><code>select * from TBNAME where number &gt;|&lt;|= NUMBER;
+</code></pre>  &nbsp;&nbsp;&nbsp;&nbsp;&gt;|&gt;=<br>  &nbsp;&nbsp;&nbsp;&nbsp;&lt;|&lt;=<br>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br>  &nbsp;&nbsp;&nbsp;&nbsp;in(v1,v2,…)</li>
+<li>逻辑判断<pre><code>select * from TBNAME where filed=value and | or field=value 
+</code></pre>[and 1=1 | or 1=1]<br>  &nbsp;&nbsp;&nbsp;&nbsp;and<br>  &nbsp;&nbsp;&nbsp;&nbsp;or<br>  &nbsp;&nbsp;&nbsp;&nbsp;not</li>
+<li>子组结果模式: ()<pre><code>select * from TBNAME where FIELD=(select filed from TBNAME where filed=value)
+</code></pre></li>
+</ul>
+<p><div><center>表联合</center></div></p>
+<ul>
+<li><strong>select * from TB1,TB2 where TB1.field = TB2.field</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;必需两表存在相同的字段值<br>&nbsp;&nbsp;&nbsp;&nbsp;相对应的字段再同一行输出<br>&nbsp;&nbsp;&nbsp;&nbsp;如果匹配字段值不相同则不会输出</li>
+<li>select * from TB1 inner join TB2 on TB1.field = TB2.field<br>&nbsp;&nbsp;&nbsp;&nbsp;效果同上</li>
+<li>select * from TB1 left outer join TB2 on [condition]<br>&nbsp;&nbsp;&nbsp;&nbsp;TB1在TB2左边<br>&nbsp;&nbsp;&nbsp;&nbsp;condition必需成立<br>&nbsp;&nbsp;&nbsp;&nbsp;如果多出的行没匹配到TB2，用NULL填充</li>
+<li>select * from TB1 right outer join TB2 on [condition]<br>&nbsp;&nbsp;&nbsp;&nbsp;TB1在TB2右边</li>
+</ul>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><ul>
+<li><p><strong>union</strong>：联合查询<br>sqlcommand1 union sqlcommand2<br>&nbsp;&nbsp;&nbsp;&nbsp;两条数据库语句一起执行输出<br>&nbsp;&nbsp;&nbsp;&nbsp;select输出的<strong>字段数必须相同</strong></p>
+</li>
+<li><p><strong>order by FIELD [desc]</strong>：对字段进行排序<br>&nbsp;&nbsp;&nbsp;&nbsp;默认升序<br>&nbsp;&nbsp;&nbsp;&nbsp;desc - 降序<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>用于判断输出的字段数</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;order by NUMBER(对应字段)，超出输出的字段值便会抛出SQL语句错误，相当与超出索引</p>
+</li>
+<li><p><strong>group by FIELD</strong>：对该字段里相同值的行进行分组<br>一般配合统计函数使用：<br>&nbsp;&nbsp;&nbsp;&nbsp;max(field)：输出该组的最大值<br>&nbsp;&nbsp;&nbsp;&nbsp;min(field)：输出该组的最小值<br>&nbsp;&nbsp;&nbsp;&nbsp;sum(field)：输出该组的数值总和<br>&nbsp;&nbsp;&nbsp;&nbsp;avg(field)：输出该组的平均值<br>&nbsp;&nbsp;&nbsp;&nbsp;count(field)：该组的总数(行数)</p>
+</li>
+</ul>
+<p><img src="/2018/01/07/Mysql基础/groupby.png" alt="groupby"></p>
+<ul>
+<li><strong>limit [offsize,]N</strong>：限制输出行数<br>&nbsp;&nbsp;&nbsp;&nbsp;offsize：行索引(0开始)<br>&nbsp;&nbsp;&nbsp;&nbsp;N：控制输出的行数<br>&nbsp;&nbsp;&nbsp;&nbsp;limit N：输出N行 -&gt; limit 0,N<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从索引为0的行输出<br>&nbsp;&nbsp;&nbsp;&nbsp;limit 0,1：只输出第一行<br>&nbsp;&nbsp;&nbsp;&nbsp;limit 1,1：只输出第二行</li>
+<li><strong>字符操作</strong><br><strong>ascii(str)</strong>：将字符串转换为ascii码<br>&nbsp;&nbsp;&nbsp;&nbsp;只能转单个字符<br><strong>left(a,b)</strong>：字符截取输出，截取a的前b个字符<br><strong>substr(a,b,c)</strong>：字符截取输出，在a字符串中，从b位置开始截取c长度个字符<br><img src="/2018/01/07/Mysql基础/str.png" alt="str"></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mysql/" rel="tag"><i class="fa fa-tag"></i> Mysql</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/07/函数类对象/" rel="next" title="函数类对象">
+                <i class="fa fa-chevron-left"></i> 函数类对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/07/SQL注入/" rel="prev" title="SQL注入">
+                SQL注入 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Wang YingYing" />
+            
+              <p class="site-author-name" itemprop="name">Wang YingYing</p>
+              <p class="site-description motion-element" itemprop="description">自己选的路，跪着是走不完的</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">1.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建用户"><span class="nav-number">1.1.</span> <span class="nav-text">创建用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置密码"><span class="nav-number">1.2.</span> <span class="nav-text">设置密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除用户"><span class="nav-number">1.3.</span> <span class="nav-text">删除用户</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#库表操作"><span class="nav-number">2.</span> <span class="nav-text">库表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#库管理"><span class="nav-number">2.1.</span> <span class="nav-text">库管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表管理"><span class="nav-number">2.2.</span> <span class="nav-text">表管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据查询"><span class="nav-number">2.3.</span> <span class="nav-text">数据查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用函数"><span class="nav-number">3.</span> <span class="nav-text">常用函数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang YingYing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </div>
+
+<!--  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

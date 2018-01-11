@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机网络基础," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="计算机网络通信基本架构">
+<meta name="keywords" content="计算机网络基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OSI七层模型">
+<meta property="og:url" content="http://yoursite.com/2018/01/04/OSI七层模型/index.html">
+<meta property="og:site_name" content="BEHIND THE GROWTH">
+<meta property="og:description" content="计算机网络通信基本架构">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/01/04/OSI七层模型/osiseven.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/01/04/OSI七层模型/all.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/04/OSI七层模型/all2.png">
+<meta property="og:updated_time" content="2018-01-09T09:11:22.284Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OSI七层模型">
+<meta name="twitter:description" content="计算机网络通信基本架构">
+<meta name="twitter:image" content="http://yoursite.com/2018/01/04/OSI七层模型/osiseven.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/04/OSI七层模型/"/>
+
+
+
+
+
+  <title>OSI七层模型 | BEHIND THE GROWTH</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BEHIND THE GROWTH</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一步一个脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/OSI七层模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang YingYing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BEHIND THE GROWTH">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">OSI七层模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T09:20:38+08:00">
+                2018-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络基础/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  计算机网络通信基本架构
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>OSI - Open System Interconnect</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;有国际化标准组织(ISO)和国际电报电话咨询委员会(CCITT)联合定制的<strong>开放系统互连参考模型</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;目的：为计算机互连提供一个共同的基础和标准框架，并为保持相关标准的一致性和兼容性提供共同参考</p>
+<p><center>大概模型图(应表会传网链物)</center><br><img src="/2018/01/04/OSI七层模型/osiseven.jpg" alt="osi"></p>
+<h2 id="物理层-Physcical-Layer"><a href="#物理层-Physcical-Layer" class="headerlink" title="物理层(Physcical Layer)"></a>物理层(Physcical Layer)</h2><p><center><strong>建立在传输媒介的基础上，实现设备之间的物理接口建立、维护、取消物理连接作用</strong></center><br><strong>单位</strong>：比特流<br><strong>设备</strong>：光纤、同轴电缆、双绞线(网线)、中继器、集线器</p>
+<ul>
+<li>带宽限制 - 每秒能通过的比特数，减少信道拥堵<br>&nbsp;&nbsp;&nbsp;&nbsp;点到点<br>&nbsp;&nbsp;&nbsp;&nbsp;一点到多点<br>&nbsp;&nbsp;&nbsp;&nbsp;串行、并行<br>&nbsp;&nbsp;&nbsp;&nbsp;半双工、全双工<br>&nbsp;&nbsp;&nbsp;&nbsp;同步、异步</li>
+</ul>
+<h2 id="数据链路层-Data-Link-Layer"><a href="#数据链路层-Data-Link-Layer" class="headerlink" title="数据链路层(Data Link Layer)"></a>数据链路层(Data Link Layer)</h2><p><center><strong>使用系统的硬件地址或物理地址(MAC)来寻址、数据成帧、数据检错、重发</strong></center><br><strong>单位</strong>：数据帧 + MAC地址<br><strong>设备</strong>：二层交换机、网桥、网卡<br><strong>协议</strong>：PPP(PPTP\L2TP)、IEEE802.x、STP、帧中继<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PPP(PPTP\L2TP)：点对点传输协议 - 一般用于VPN(Virtual Private Network-虚拟专用网络)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STP：交换机的生成树协议</p>
+<h2 id="网络层-Network-Layer"><a href="#网络层-Network-Layer" class="headerlink" title="网络层(Network Layer)"></a>网络层(Network Layer)</h2><p><center><strong>路由寻址，实现不同网络之间的路径选择</strong></center><br><strong>单位</strong>：数据包(分组) + IP地址<br><strong>设备</strong>：网关、路由器<br><strong>协议</strong>：ARP\RARP、IP、ICMP、RIP、OSPF[EIGRP|IGRP]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ARP：地址转换协议 - 实现物理地址寻址(IP &lt;=&gt; MAC)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IP：网际协议 - 路由寻址<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICMP：网际控制报文协议 - Ping<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RIP：路由信息协议 - 用于路由器，基于距离矢量，以跳数作为计数标准(MAX:15)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OSPF[EIGRP|IGRP]：开放式最短路径优先协议， EIGRP|EGRP - Cisco独有</p>
+<h2 id="传输层-Transport-Layer"><a href="#传输层-Transport-Layer" class="headerlink" title="传输层(Transport Layer)"></a>传输层(Transport Layer)</h2><p><center><strong>定义数据传输的协议端口号，以及流控和差错校验</strong></center><br><strong>单位</strong>：数据段 + 端口<br><strong>端口(PORT)</strong>：<br>&nbsp;&nbsp;&nbsp;&nbsp;数量：65535(1~1023为系统使用端口)<br>&nbsp;&nbsp;&nbsp;&nbsp;功能：网络基于Socket(套接字)之间的通信<br>&nbsp;&nbsp;&nbsp;&nbsp;常用(netstat)：8080 - www、20[21] - ftp、22 - ssh、23 - telnet、25 - SMTP、80 - www、110 - POP3、161 - SNMP、137[138\139] - NETBIOS、3306 - Mysql<br><strong>协议</strong>：TCP/UDP<br>&nbsp;&nbsp;&nbsp;&nbsp;TCP：面向连接,可靠的传输协议,三次握手<br>&nbsp;&nbsp;&nbsp;&nbsp;UDP：面向无连接，高效的传输协议<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>透明传输，不代表安全</strong></p>
+<h2 id="会话层-Session-Layer"><a href="#会话层-Session-Layer" class="headerlink" title="会话层(Session Layer)"></a>会话层(Session Layer)</h2><p><div><center><strong>建立、管理、终止会话</strong></center></div><br><strong>单位</strong>：数据报文</p>
+<ul>
+<li>对应主机进程，本地主机与远程主机正在进行的会话</li>
+</ul>
+<h2 id="表示层-Presentation-Layer"><a href="#表示层-Presentation-Layer" class="headerlink" title="表示层(Presentation Layer)"></a>表示层(Presentation Layer)</h2><p><center>数据的表示、编码格式转换、安全|加解密、压缩</center><br><strong>单位</strong>：数据报文<br><strong>格式</strong>：JPEG、ASCII、DECOCO、加密格式…</p>
+<h2 id="应用层-Application-Layer"><a href="#应用层-Application-Layer" class="headerlink" title="应用层(Application Layer)"></a>应用层(Application Layer)</h2><p><div><center><strong>用户与网络服务的接口</strong></center></div><br><strong>单位</strong>：数据报文<br><strong>功能</strong>：提供网络管理、文件传输、数据处理…<br><strong>协议</strong>：Telnet、FTP、HTTP[S]、SNMP、DNS…</p>
+<h2 id="TCP-IP五层"><a href="#TCP-IP五层" class="headerlink" title="TCP/IP五层"></a>TCP/IP五层</h2><p><center><strong>对应七层模型+设备|协议</strong></center><br><img src="/2018/01/04/OSI七层模型/all.png" alt="all"><br><img src="/2018/01/04/OSI七层模型/all2.png" alt="all2"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机网络基础/" rel="tag"><i class="fa fa-tag"></i> 计算机网络基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/04/IP/" rel="prev" title="IP">
+                IP <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Wang YingYing" />
+            
+              <p class="site-author-name" itemprop="name">Wang YingYing</p>
+              <p class="site-description motion-element" itemprop="description">自己选的路，跪着是走不完的</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#物理层-Physcical-Layer"><span class="nav-number">1.</span> <span class="nav-text">物理层(Physcical Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据链路层-Data-Link-Layer"><span class="nav-number">2.</span> <span class="nav-text">数据链路层(Data Link Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络层-Network-Layer"><span class="nav-number">3.</span> <span class="nav-text">网络层(Network Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传输层-Transport-Layer"><span class="nav-number">4.</span> <span class="nav-text">传输层(Transport Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#会话层-Session-Layer"><span class="nav-number">5.</span> <span class="nav-text">会话层(Session Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表示层-Presentation-Layer"><span class="nav-number">6.</span> <span class="nav-text">表示层(Presentation Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用层-Application-Layer"><span class="nav-number">7.</span> <span class="nav-text">应用层(Application Layer)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-IP五层"><span class="nav-number">8.</span> <span class="nav-text">TCP/IP五层</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang YingYing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </div>
+
+<!--  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

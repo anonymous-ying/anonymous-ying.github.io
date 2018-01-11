@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Python迭代生成装饰递归排序分析">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="迭代生成装饰递归排序">
+<meta property="og:url" content="http://yoursite.com/2018/01/07/迭代生成装饰递归/index.html">
+<meta property="og:site_name" content="BEHIND THE GROWTH">
+<meta property="og:description" content="Python迭代生成装饰递归排序分析">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/01/07/迭代生成装饰递归/wrapper1.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/07/迭代生成装饰递归/wrapper2.png">
+<meta property="og:updated_time" content="2018-01-11T07:34:25.555Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="迭代生成装饰递归排序">
+<meta name="twitter:description" content="Python迭代生成装饰递归排序分析">
+<meta name="twitter:image" content="http://yoursite.com/2018/01/07/迭代生成装饰递归/wrapper1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/07/迭代生成装饰递归/"/>
+
+
+
+
+
+  <title>迭代生成装饰递归排序 | BEHIND THE GROWTH</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BEHIND THE GROWTH</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一步一个脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/07/迭代生成装饰递归/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang YingYing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BEHIND THE GROWTH">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">迭代生成装饰递归排序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T17:39:39+08:00">
+                2018-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Python迭代生成装饰递归排序分析
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>
+
+<h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><p></p></center><br><strong>访问集合元素的一种方式</strong><br><strong>特点</strong><p></p>
+<ul>
+<li>不需要关心迭代器内部结构，仅通过next()方法不断取下一个值</li>
+<li>不能随机的访问集合中的某个值，只能从头到尾依次访问</li>
+<li>不能访问一半往回退</li>
+<li>便于循环较大的数据集合，节省内存</li>
+</ul>
+<p><strong>例如</strong>：<br>&nbsp;&nbsp;&nbsp;&nbsp;cat/more命令, 一次将内容输出，不能随便访问某个值<br>&nbsp;&nbsp;&nbsp;&nbsp;xrange()、file.xreadlines[readlines]()<br><strong>生成一个迭代器</strong>：iter(list)<br>&nbsp;&nbsp;&nbsp;&nbsp;类型：listiterator<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>唯一的方法：next()/__next__()</strong></p>
+<p><hr></p>
+<center>
+
+<h2 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h2><p></p></center><br><strong>一个函数被调用时返回一个迭代器，那这个函数叫做生成器(generator)</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;函数类型：generator<br>&nbsp;&nbsp;&nbsp;&nbsp;函数返回值：迭代器(next访问)<br>语法：<strong>yield [value]</strong><br><strong>特点</strong>(区别与return)<br>&nbsp;&nbsp;&nbsp;&nbsp;yield：不中断函数返回，下一次执行函数从上一次yield的地方开始执行<br>&nbsp;&nbsp;&nbsp;&nbsp;return：直接中断函数返回，下次执行函数时从头执行函数<br><strong>给yield赋值</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>value = yield</strong> &lt;– <strong>generator.send(value)</strong><br><strong>适用场景</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;函数中执行循环的时候要将循环的每一个结果都返回，但又不中断函数<p></p>
+<p><hr></p>
+<center>
+
+<h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><p></p></center><br><strong>一个高阶的回调函数，以函数作为函数的参数返回一个新函数</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;函数参数不使用()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;调用函数不使用()时，表示引用一个函数的指针，使用(),表示执行一个函数<br><strong>效果</strong>：在不改变函数原貌的情况下又添加了新的功能<br><strong>引用</strong>：@wrapper<br><strong>最简单的装饰器</strong><p></p>
+<pre><code>def wrapper(func):
+    def inner(*args, **kwargs):
+        code...
+        f = func(*args, **kwargs)
+        code...
+        return f
+    return inner
+
+##############################
+@wrapper
+def func():
+    print &quot;source function&quot;
+    return True
+f = func()
+==============================
+inner = wrapper(func)
+f = inner()
+##############################
+</code></pre><ul>
+<li>调用@时，首先执行装饰器，如果不封装二层函数(inner)，会直接执行，而达不到函数自动调用，也达不到传参的效果，<strong>函数参数返回函数，必需要有二层函数封装</strong><table><tr><br><td><img src="/2018/01/07/迭代生成装饰递归/wrapper1.png" alt="wrapper1"></td><br><td><img src="/2018/01/07/迭代生成装饰递归/wrapper2.png" alt="wrapper2"></td><br></tr></table></li>
+<li>当被装饰函数需要传参数的时候：使用动态参数 - *args,**kwargs</li>
+<li>当被装饰函数有返回值的时候：return f = func() </li>
+<li><strong>高级使用</strong>，一般少用：装饰器多个参数，封装多一层def</li>
+</ul>
+<pre><code>def func1():
+    print &quot;function1&quot;
+def func2():
+    print &quot;function2&quot;
+def filter(func1, func2):
+     def outer(func):
+           def wrapper(*arg, **kwargs):
+                 func1()
+                 f = func(*arg, **kwargs)
+                 func2()
+                 return f
+            return wrapper
+      return outer
+
+@filter(func1,func2)
+def func():
+    print &quot;fucntion&quot;
+func()
+</code></pre><p><hr></p>
+<center>
+
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p></p></center><br><strong>函数在内部调用自己</strong><p></p>
+<ul>
+<li><strong>递归出口</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;递归层层调用自己(死循环)<br>&nbsp;&nbsp;&nbsp;&nbsp;为了结束调用和防止栈溢出，必须有一个递归<strong>结束条件</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;退出的时候层层返回自己的返回</li>
+</ul>
+<p><strong>Example</strong></p>
+<div><center><strong>斐波那契序列</strong></center></div>
+
+<pre><code>def feibo(n1,n2,stop):
+    if n1 == 0:
+        print n1, &apos;\n&apos;, n2
+    n3 = n1 + n2
+    print n3
+    if n3 &lt; stop:
+        feibo(n2, n3, stop)
+</code></pre><ul>
+<li>前面两个值相加等于第三个值            </li>
+</ul>
+<div><center><strong>二分查找</strong></center></div>
+
+<pre><code>def binary_search(data, findnum):
+    mid = len(data)/2
+    if len(data) &gt;= 1:
+        if data[mid] &gt; findnum:
+            print &quot;[*]findnum in data left of [%s]&quot; % data[:mid]
+            binary_search(data[:mid], findnum)
+        elif data[mid] &lt; findnum:
+            print &quot;[*]findnum in data right of [%s]&quot; % data[mid:]
+            binary_search(data[mid:], findnum)
+        else:
+            print &quot;[+]found number: &quot;,data[mid]
+    else:
+        print &quot;[-]found number not in data list&quot;
+</code></pre><ul>
+<li><strong>有序数据集</strong>：冒泡排序         </li>
+<li>获取数据集中间值的索引</li>
+<li>用中间值跟查找值相比较，判断在中间值的那边，进行索引截断，继续调用自身函数进行判断</li>
+</ul>
+<p><hr></p>
+<center>
+
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p></p></center><br><strong>冒泡排序</strong><p></p>
+<ul>
+<li>将每一个值与下一个值进行比较(通过索引)</li>
+<li>第一次循环让列表的第一个值变为最小值，继续循环比较下一个</li>
+</ul>
+<pre><code>#相比较的两个数的第一个值的索引
+for i in range(len(list)):
+    #相比较的两个数的第二个值的索引
+    for j in range(i+1, len(list)):
+        #大小互换
+        if list[i] &gt; list[j]:
+            tmp = list[j]
+            list[j] = list[i]
+            list[i] = tmp
+===================================
+#循环比较没一个值
+for i in range(len(list)):
+    #循环比较一个值,因为需要与下一个值比较使用(j+1),为了避免索引超出，所以在循环的范围-1
+    for j in range(len(list)-1):
+        if list[j] &gt; list[j+1]:
+            tmp = list[j+1]
+            list[j+1] = list[j]
+            list[j] = tmp
+===================================
+#优化
+for i in range(1, len(list)):
+    for j in range(len(list)-i):
+        if list[j] &gt; list[j+1]:
+            tmp = list[j+1]
+            list[j+1] = list[j]
+            list[j] = tmp
+</code></pre><p><hr><br><strong>多维数组旋转</strong></p>
+<pre><code>data = [[row for row in range(4)] for columns in range(4)]
+for r_index, row in enumerate(data):
+    for c_index in range(r_index, len(row)):
+        tmp = data[c_index][r_index]
+        data[c_index][r_index] = row[c_index]
+        data[r_index][c_index] = tmp
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/05/文件操作/" rel="next" title="文件操作">
+                <i class="fa fa-chevron-left"></i> 文件操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/07/函数类对象/" rel="prev" title="函数类对象">
+                函数类对象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Wang YingYing" />
+            
+              <p class="site-author-name" itemprop="name">Wang YingYing</p>
+              <p class="site-description motion-element" itemprop="description">自己选的路，跪着是走不完的</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器"><span class="nav-number">1.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器"><span class="nav-number">2.</span> <span class="nav-text">生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰器"><span class="nav-number">3.</span> <span class="nav-text">装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">4.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">5.</span> <span class="nav-text">排序</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang YingYing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </div>
+
+<!--  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Python函数类对象笔记">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数类对象">
+<meta property="og:url" content="http://yoursite.com/2018/01/07/函数类对象/index.html">
+<meta property="og:site_name" content="BEHIND THE GROWTH">
+<meta property="og:description" content="Python函数类对象笔记">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/01/07/函数类对象/mind.jpg">
+<meta property="og:updated_time" content="2018-01-11T07:34:13.820Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数类对象">
+<meta name="twitter:description" content="Python函数类对象笔记">
+<meta name="twitter:image" content="http://yoursite.com/2018/01/07/函数类对象/mind.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/07/函数类对象/"/>
+
+
+
+
+
+  <title>函数类对象 | BEHIND THE GROWTH</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BEHIND THE GROWTH</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一步一个脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/07/函数类对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang YingYing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BEHIND THE GROWTH">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">函数类对象</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-07T17:43:56+08:00">
+                2018-01-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Python函数类对象笔记
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p></p></center><br><strong>对多次反复调用的代码块进行封装</strong><p></p>
+<h3 id="format"><a href="#format" class="headerlink" title="format"></a>format</h3><pre><code>#定义
+def FUNNAME(*args):
+   CODE...
+   [reutn value]
+#调用
+FUNNAME(*args)
+</code></pre><h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><strong>位置参数</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;依次传入，当函数有参数时，必需填入</li>
+</ul>
+<pre><code>#arg1, arg2为形式参数,函数内部使用
+def FUNCNAME(arg1,arg2):
+    print arg1, arg2
+#a1,a2为实参，可以不与形参同名
+FUNCNAME(a1, a2)
+</code></pre><ul>
+<li><strong>关键字参数</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;一般用于定义默认参数，key=value</li>
+</ul>
+<pre><code>def FUNCNAME(arg1=a1, args2):
+    CODE
+</code></pre><ul>
+<li><strong>可变参数</strong>：传入[不定个数]的参数组</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>非关键字可变长参数(元组)</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用：[ * ]，可以是任意数量的参数，再将参数按位置封装成元组传入</p>
+<pre><code>def FUNCNAME(*tuple_name):
+    print tuple_name
+FUNCNAME(a1,a2,a3,...)
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>关键字可变长参数(字典)</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用：[ ** ]，将任意数量的关键字参数封装成字典的格式传入，允许参数缺失，不用按照位置传参</p>
+<pre><code>def FUNCNAME(**dict_name):
+    print dict_name
+FUNCNAME(a1=v1, a2=v2, a3=v3,...)
+</code></pre><h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p><strong>return | yield</strong>：让函数中断执行，如果函数有执行结果，将执行结果返回，可以return None或者空，return下面的代码将不被执行。<br>&nbsp;&nbsp;&nbsp;&nbsp;yield - 迭代器，<strong>上一章</strong></p>
+<pre><code>def FUNCNAME(*ags):
+    print &quot;start run&quot;
+    return
+    print &quot;Not executed&quot;
+r = FUNCNAME()
+r -&gt; 空
+</code></pre><h3 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h3><p><strong>顺序</strong>：局部变量 -&gt; 全局变量<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>全局变量</strong><br>声明在函数/类外层，全局可以调用，但不能修改<br><strong>global</strong>：让函数/类能够修改全局变量的值返回<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>局部变量</strong><br>声明在函数/类内部，由函数/类自身调用</p>
+<h3 id="匿名函数-lambda"><a href="#匿名函数-lambda" class="headerlink" title="匿名函数 - lambda"></a>匿名函数 - lambda</h3><p><strong>直接将函数执行结果返回，便捷形式函数,可以不定义func_name、return</strong><br>format:<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>func_name = lambda [*args]: CODE</strong></p>
+<h3 id="递归回调函数"><a href="#递归回调函数" class="headerlink" title="递归回调函数"></a>递归回调函数</h3><ul>
+<li><strong>上一章</strong><br><strong>递归函数</strong>：函数内部调用自身函数<br>&nbsp;&nbsp;&nbsp;&nbsp;斐波序列、二分<br><strong>回调函数</strong>：函数作为[结果值]返回<br>&nbsp;&nbsp;&nbsp;&nbsp;装饰器</li>
+</ul>
+<p><hr></p>
+<center>
+
+<h2 id="类、对象"><a href="#类、对象" class="headerlink" title="类、对象"></a>类、对象</h2><p></p></center><br><strong>减少重复代码，加强扩展性，易读易改</strong><p></p>
+<ul>
+<li>类：<strong>具有相同属性&amp;方法的[对象]集合</strong></li>
+<li>对象：<strong>类的其中一个实例</strong></li>
+</ul>
+<h3 id="format-1"><a href="#format-1" class="headerlink" title="format"></a>format</h3><pre><code>class ClassName(base):
+    &apos;class document string&apos;
+    attr = value
+    #初始化实例参数(变量)
+    def __init__(self, arg1, arg2):
+        #将参数绑定到self(实例本身)
+        self.arg1 = arg1
+        self.arg2 = arg2
+    def function(self):
+        #引用实例参数(变量)
+        print &quot;%s : %s&quot; (self.arg1, self.arg2)
+    CODE...
+#实例化类(对象)
+obejct = ClassName(a1, a2)
+object = ClassName(b1, b2)
+#变量引用
+ClassName.attr
+object.attr
+object.arg1
+#对象方法调用
+object.function()
+</code></pre><h3 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h3><p><strong>实例参数，在创建实例的时候通过构造函数(__init__)传参</strong></p>
+<ul>
+<li>参数传入时绑定到self(实例对象自身)，通过self.key引用</li>
+<li>每个实例只能访问自己的参数/变量(通过self)</li>
+</ul>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ul>
+<li><p><strong>类变量</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;在[类]中，在[函数体]外<br>&nbsp;&nbsp;&nbsp;&nbsp;在这个类的所有[实例]之间共享，类成员都可以访问</p>
+</li>
+<li><p><strong>实例变量</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;定义在[类函数体内]，绑定到self<br>&nbsp;&nbsp;&nbsp;&nbsp;只作用于当前实例，只能由实例本身访问，类都不能访问</p>
+</li>
+<li><p>私有变量/特殊变量(属性访问控制)<br>&nbsp;&nbsp;&nbsp;&nbsp;私有变量：_attr = value<br>&nbsp;&nbsp;&nbsp;&nbsp;特殊变量：__attr__ = value</p>
+</li>
+</ul>
+<h3 id="类特点"><a href="#类特点" class="headerlink" title="类特点"></a>类特点</h3><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><p><strong>抽象得到的数据和行为(或功能)相结合</strong>  抽象类 -&gt; 实例调用实例方法</p>
+<ul>
+<li><p>实例方法 <strong>def func(self)</strong>：绑定到self的方法<br>&nbsp;&nbsp;&nbsp;&nbsp;通过实例对象访问：object.func()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不用传参，参数在实例对象时由__init__绑定到self</p>
+</li>
+<li><p>类方法 <strong>@classmethod</strong>：通过类名访问</p>
+</li>
+</ul>
+<pre><code>@classmethod
+def classfunc():
+    CODE
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ClassName.classfunc()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类方法不能访问实例变量</p>
+<ul>
+<li>静态方法 <strong>@staticmethod</strong>：</li>
+</ul>
+<pre><code>@staticmethod
+def classfunc():
+    CODE
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不能访问类变量跟实例变量，相当于虽然在类里，但是又独立出去</p>
+<ul>
+<li>属性方法 <strong>@propertymethod</strong>：</li>
+</ul>
+<pre><code>@propertymethod
+def classfunc():
+    CODE
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让方法变成以属性的方法访问便可以执行，不用()</p>
+<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p><strong>通过[继承]享有[父类的属性]</strong>进一步减少代码重用</p>
+<pre><code>class Father(object):
+    def __init__(self, name, age):
+        CODE
+    CODE
+class Son(Father):
+    #重构参数
+    def __init__(self, name, age, play):
+        #继承父类参数
+        super(Son, self).__init__(name, age)
+        self.play = play
+    CODE
+</code></pre><ul>
+<li>类参数：<br>&nbsp;&nbsp;&nbsp;&nbsp;object[base]：所有类的基类[父类名]</li>
+<li>初始化参数<br>&nbsp;&nbsp;&nbsp;&nbsp;不会自动继承父类_<em>init__<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;调用super(sonclass, self).</em>__init__(farg1,farg2)</li>
+<li>参数读取顺序：先在[本类]中查找，再到[父类]中查找</li>
+<li>多重继承：组建一个类列表当base</li>
+</ul>
+<h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><p><strong>实现接口重用</strong>，python本身不集成多态<br>达到：父类可以调用子类接口<br>python模拟多态</p>
+<pre><code>shiliLists = [shili1(), shili2()...]
+for shili in shiliLists:
+       shili.attr
+       shili.func()
+==================================
+def objfunc(obj):
+    obj.func()
+c = shili1()
+d = shili2()
+object(c)
+object(d)
+</code></pre><h2 id="BIF-类方法"><a href="#BIF-类方法" class="headerlink" title="BIF(类方法)"></a>BIF(类方法)</h2><ul>
+<li><strong>issubclass(sub, (sup,..))</strong>：判断sub是否为sup(可以传入一个类元组)的子类</li>
+<li><strong>isinstance(obj, (class,…))</strong>：判断对象是否属于这个类</li>
+<li><strong>hasattr(obj, name)</strong>：判断对象是否有这个属性、方法</li>
+<li><strong>[value|func = ]getattr(obj, name)</strong>：获取对象的属性、方法</li>
+<li><strong>setattr(obj, name, value[func])</strong>：设置这个对象的新属性、方法</li>
+<li><strong>delattr(obj, name)</strong>：删除这个对象的一个属性、方法<br><strong>一般用于做关系映射</strong></li>
+</ul>
+<h2 id="面向过程-面向对象"><a href="#面向过程-面向对象" class="headerlink" title="面向过程/面向对象"></a>面向过程/面向对象</h2><p>面向过程：写一个程序，他就干一件事情，只需关心 条件 – 结果<br>面向对象：写一个程序，模拟不同的部件(实例)来运行，通过部件调用来实现功能<br><img src="/2018/01/07/函数类对象/mind.jpg" alt="fun"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/07/迭代生成装饰递归/" rel="next" title="迭代生成装饰递归排序">
+                <i class="fa fa-chevron-left"></i> 迭代生成装饰递归排序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/07/Mysql基础/" rel="prev" title="Mysql基础">
+                Mysql基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Wang YingYing" />
+            
+              <p class="site-author-name" itemprop="name">Wang YingYing</p>
+              <p class="site-description motion-element" itemprop="description">自己选的路，跪着是走不完的</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#format"><span class="nav-number">1.1.</span> <span class="nav-text">format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">1.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">1.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量作用域"><span class="nav-number">1.4.</span> <span class="nav-text">变量作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名函数-lambda"><span class="nav-number">1.5.</span> <span class="nav-text">匿名函数 - lambda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归回调函数"><span class="nav-number">1.6.</span> <span class="nav-text">递归回调函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类、对象"><span class="nav-number">2.</span> <span class="nav-text">类、对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#format-1"><span class="nav-number">2.1.</span> <span class="nav-text">format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数-1"><span class="nav-number">2.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">2.3.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类特点"><span class="nav-number">2.4.</span> <span class="nav-text">类特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#封装"><span class="nav-number">2.4.1.</span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继承"><span class="nav-number">2.4.2.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态"><span class="nav-number">2.4.3.</span> <span class="nav-text">多态</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BIF-类方法"><span class="nav-number">3.</span> <span class="nav-text">BIF(类方法)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向过程-面向对象"><span class="nav-number">4.</span> <span class="nav-text">面向过程/面向对象</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang YingYing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </div>
+
+<!--  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
