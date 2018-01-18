@@ -95,7 +95,7 @@
 <meta property="og:description" content="Python函数类对象笔记">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/01/07/函数类对象/mind.jpg">
-<meta property="og:updated_time" content="2018-01-11T07:34:13.820Z">
+<meta property="og:updated_time" content="2018-01-16T11:33:16.580Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数类对象">
 <meta name="twitter:description" content="Python函数类对象笔记">
@@ -449,7 +449,7 @@ object.function()
 </li>
 <li><p><strong>实例变量</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;定义在[类函数体内]，绑定到self<br>&nbsp;&nbsp;&nbsp;&nbsp;只作用于当前实例，只能由实例本身访问，类都不能访问</p>
 </li>
-<li><p>私有变量/特殊变量(属性访问控制)<br>&nbsp;&nbsp;&nbsp;&nbsp;私有变量：_attr = value<br>&nbsp;&nbsp;&nbsp;&nbsp;特殊变量：__attr__ = value</p>
+<li><p>私有变量/特殊变量(属性访问控制)<br>&nbsp;&nbsp;&nbsp;&nbsp;私有变量：_attr = value<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一般想外面访问私有变量就定义一个返回私有变量的方法<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obj._classname__value<br>&nbsp;&nbsp;&nbsp;&nbsp;特殊变量：__attr__ = value</p>
 </li>
 </ul>
 <h3 id="类特点"><a href="#类特点" class="headerlink" title="类特点"></a>类特点</h3><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><p><strong>抽象得到的数据和行为(或功能)相结合</strong>  抽象类 -&gt; 实例调用实例方法</p>
@@ -507,13 +507,13 @@ c = shili1()
 d = shili2()
 object(c)
 object(d)
-</code></pre><h2 id="BIF-类方法"><a href="#BIF-类方法" class="headerlink" title="BIF(类方法)"></a>BIF(类方法)</h2><ul>
+</code></pre><h2 id="BIF-内建类方法"><a href="#BIF-内建类方法" class="headerlink" title="BIF(内建类方法)"></a>BIF(内建类方法)</h2><ul>
 <li><strong>issubclass(sub, (sup,..))</strong>：判断sub是否为sup(可以传入一个类元组)的子类</li>
 <li><strong>isinstance(obj, (class,…))</strong>：判断对象是否属于这个类</li>
-<li><strong>hasattr(obj, name)</strong>：判断对象是否有这个属性、方法</li>
-<li><strong>[value|func = ]getattr(obj, name)</strong>：获取对象的属性、方法</li>
+<li><strong>hasattr(obj, ‘name’)</strong>：判断对象是否有这个属性、方法</li>
+<li><strong>[value|func = ]getattr(obj, ‘name’)</strong>：获取对象的属性、方法<br>&nbsp;&nbsp;&nbsp;&nbsp;func()</li>
 <li><strong>setattr(obj, name, value[func])</strong>：设置这个对象的新属性、方法</li>
-<li><strong>delattr(obj, name)</strong>：删除这个对象的一个属性、方法<br><strong>一般用于做关系映射</strong></li>
+<li><strong>delattr(obj, name)</strong>：删除这个对象的一个属性、方法<br><strong>一般用于做关系映射</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;通过字符串来调用对象同名方法的内存地址</li>
 </ul>
 <h2 id="面向过程-面向对象"><a href="#面向过程-面向对象" class="headerlink" title="面向过程/面向对象"></a>面向过程/面向对象</h2><p>面向过程：写一个程序，他就干一件事情，只需关心 条件 – 结果<br>面向对象：写一个程序，模拟不同的部件(实例)来运行，通过部件调用来实现功能<br><img src="/2018/01/07/函数类对象/mind.jpg" alt="fun"></p>
 
@@ -639,7 +639,7 @@ object(d)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -650,7 +650,7 @@ object(d)
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -663,7 +663,7 @@ object(d)
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -696,7 +696,7 @@ object(d)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#format"><span class="nav-number">1.1.</span> <span class="nav-text">format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">1.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">1.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量作用域"><span class="nav-number">1.4.</span> <span class="nav-text">变量作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名函数-lambda"><span class="nav-number">1.5.</span> <span class="nav-text">匿名函数 - lambda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归回调函数"><span class="nav-number">1.6.</span> <span class="nav-text">递归回调函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类、对象"><span class="nav-number">2.</span> <span class="nav-text">类、对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#format-1"><span class="nav-number">2.1.</span> <span class="nav-text">format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数-1"><span class="nav-number">2.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">2.3.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类特点"><span class="nav-number">2.4.</span> <span class="nav-text">类特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#封装"><span class="nav-number">2.4.1.</span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继承"><span class="nav-number">2.4.2.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态"><span class="nav-number">2.4.3.</span> <span class="nav-text">多态</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BIF-类方法"><span class="nav-number">3.</span> <span class="nav-text">BIF(类方法)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向过程-面向对象"><span class="nav-number">4.</span> <span class="nav-text">面向过程/面向对象</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#format"><span class="nav-number">1.1.</span> <span class="nav-text">format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">1.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">1.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量作用域"><span class="nav-number">1.4.</span> <span class="nav-text">变量作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名函数-lambda"><span class="nav-number">1.5.</span> <span class="nav-text">匿名函数 - lambda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归回调函数"><span class="nav-number">1.6.</span> <span class="nav-text">递归回调函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类、对象"><span class="nav-number">2.</span> <span class="nav-text">类、对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#format-1"><span class="nav-number">2.1.</span> <span class="nav-text">format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数-1"><span class="nav-number">2.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">2.3.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类特点"><span class="nav-number">2.4.</span> <span class="nav-text">类特点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#封装"><span class="nav-number">2.4.1.</span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继承"><span class="nav-number">2.4.2.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态"><span class="nav-number">2.4.3.</span> <span class="nav-text">多态</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BIF-内建类方法"><span class="nav-number">3.</span> <span class="nav-text">BIF(内建类方法)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向过程-面向对象"><span class="nav-number">4.</span> <span class="nav-text">面向过程/面向对象</span></a></li></ol></div>
             
 
           </div>

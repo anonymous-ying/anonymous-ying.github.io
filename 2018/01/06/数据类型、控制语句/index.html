@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Python基础-运算符、占位符、数据类型、控制语句">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据类型、控制语句、异常处理">
+<meta property="og:url" content="http://yoursite.com/2018/01/06/数据类型、控制语句/index.html">
+<meta property="og:site_name" content="BEHIND THE GROWTH">
+<meta property="og:description" content="Python基础-运算符、占位符、数据类型、控制语句">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-16T16:16:39.225Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据类型、控制语句、异常处理">
+<meta name="twitter:description" content="Python基础-运算符、占位符、数据类型、控制语句">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/06/数据类型、控制语句/"/>
+
+
+
+
+
+  <title>数据类型、控制语句、异常处理 | BEHIND THE GROWTH</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BEHIND THE GROWTH</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一步一个脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/06/数据类型、控制语句/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang YingYing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BEHIND THE GROWTH">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据类型、控制语句、异常处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T19:34:47+08:00">
+                2018-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Python基础-运算符、占位符、数据类型、控制语句
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>
+
+<h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><p></p></center><p></p>
+<ul>
+<li>算术运算<br>&nbsp;&nbsp;&nbsp;&nbsp;+、-、*、/<br>&nbsp;&nbsp;&nbsp;&nbsp;%：取模(除法取余)<br>&nbsp;&nbsp;&nbsp;&nbsp;**：求幂<br>&nbsp;&nbsp;&nbsp;&nbsp;//：取整除(商的整数部分)</li>
+<li>赋值运算<br>&nbsp;&nbsp;&nbsp;&nbsp;=<br>&nbsp;&nbsp;&nbsp;&nbsp;+=、-=、<em>=、/=、%=、*</em>=、//=</li>
+<li>比较运算<br>&nbsp;&nbsp;&nbsp;&nbsp;==、!=<br>&nbsp;&nbsp;&nbsp;&nbsp;&gt;、&gt;=、&lt;、&lt;=</li>
+<li>位运算/逻辑运算<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp;：与 - and<br>&nbsp;&nbsp;&nbsp;&nbsp;||：或 - or<br>&nbsp;&nbsp;&nbsp;&nbsp;^：非 - not<br>&nbsp;&nbsp;&nbsp;&nbsp;-：反<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;&lt;：左移<br>&nbsp;&nbsp;&nbsp;&nbsp;&gt;&gt;：右移</li>
+<li>成员运算<br>&nbsp;&nbsp;&nbsp;&nbsp;in<br>&nbsp;&nbsp;&nbsp;&nbsp;not in</li>
+<li>身份运算<br>&nbsp;&nbsp;&nbsp;&nbsp;is<br>&nbsp;&nbsp;&nbsp;&nbsp;not is</li>
+<li>转义符<br>&nbsp;&nbsp;&nbsp;&nbsp;\<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n：换行<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r：回车<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\t：制表</li>
+</ul>
+<center>
+
+<h2 id="占位符"><a href="#占位符" class="headerlink" title="占位符"></a>占位符</h2><p></p></center><br><strong>不能出现缺失值</strong><p></p>
+<ul>
+<li><strong>%</strong> - 多个占位使用tuple进行代入-“%s:%s” % (v1,v2)<br>&nbsp;&nbsp;&nbsp;&nbsp;%s：字符串<br>&nbsp;&nbsp;&nbsp;&nbsp;%d：整数<br>&nbsp;&nbsp;&nbsp;&nbsp;%f：小数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%0.2f - 两位小数点<br>&nbsp;&nbsp;&nbsp;&nbsp;”%(key)[s|d|f]” % {‘k1’:’v1’,’k2’,v2,…}：键值占位<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s：字符串<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d：整数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f：小数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.g：”%(name)s” % {‘name’:’string’}</li>
+<li><strong>format</strong>：{}<br>&nbsp;&nbsp;&nbsp;&nbsp;”{}:{}”.format(v1,v2)<br>&nbsp;&nbsp;&nbsp;&nbsp;”{k1}:{k2}”.format(k1=v1, k2=v2)</li>
+</ul>
+<center>
+
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p></p></center><br>查看数据类型函数：<strong>type(value)</strong><p></p>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><ul>
+<li><strong>int</strong>：有符号整型</li>
+<li><strong>float</strong>：浮点型</li>
+<li><strong>complex</strong>：复数</li>
+<li><strong>bool</strong>：布尔判断<br>&nbsp;&nbsp;&nbsp;&nbsp;true<br>&nbsp;&nbsp;&nbsp;&nbsp;false</li>
+</ul>
+<h3 id="字符串-str-“”"><a href="#字符串-str-“”" class="headerlink" title="字符串 str - “”"></a>字符串 str - “”</h3><p><strong>python的str为不可变对象，每次迭代都会生成新的str对象来存储字符串，字符串越长，创建的str对象越多占内存越大</strong></p>
+<ul>
+<li>定义：string = “” | string = str()</li>
+<li><strong>r</strong>：r’str’ - 原字符输出，忽略转义符号</li>
+<li><strong>字符串元组</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;可索引<br>&nbsp;&nbsp;&nbsp;&nbsp;不支持索引修改<br>&nbsp;&nbsp;&nbsp;&nbsp;支持转换为list、tuple，转后不可以直接转回str，需要做遍历拼接字符(修改也是)</li>
+<li>BIF(built-in function-内建函数)<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>编码</strong> - python内部使用unicode编码<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decode()：将某编码转为unicode<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encode()：将unicode转为某编码<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>大小写</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.upper()：将英文字母都转换为大写<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.lower()：将英文字母都转换为小写<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>字符串操作</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.split([sign])：将字符串以sign分割为列表，列表不包括sign<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认空格<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;’[sign]’.join(strlist)：用sign将字符串列表里的每个值拼成一个字符串<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.replace(‘old’,’new’)：替换字符串字符<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.[l|r]strip()：去掉字符串的空格<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不能去掉中间空格，l-前 | r-后 | 默认前后<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.count(str[,start[,end]])：统计字符<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.index(str[,start[,end]])：查看字符所在索引<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>判断(bool)</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.isupper()：是否都为大写字母<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.islower()：是否都为小写字母<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.isalpha()：是否只包含字母<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.isdigit()：是否只包含数字<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str.isalnum()：是否只包含数字和字母<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>str.startswith(str)</strong>：是否是str开头<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>str.endswith(str)</strong>：是否是str结尾</li>
+</ul>
+<h3 id="列表-list"><a href="#列表-list" class="headerlink" title="列表 list - []"></a>列表 list - []</h3><ul>
+<li>定义：li = [] | li = list()</li>
+<li><strong>多个变量的集合，可以存放不同的变量类型在同一个列表中，可以修改增删列表中的值</strong></li>
+<li><strong>python2的列表中中文会被转码，索引取值还是会编码错误!!!在for中遍历时候不会出现编码问题</strong></li>
+<li>索引 - 列表中的每个值都有相对应的下表(0开始)<br>&nbsp;&nbsp;&nbsp;&nbsp;通过索引进行取值<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list[index]：获取指定下标的值<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正：前往后取 - list[0] 开始第一位<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;负：后往前取 - list[-1] 倒数第一位<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list[[start]:[end]]：范围取值<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list[N:M]：从N截取到M，前包后不包<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list[:N]：从开始截取到索引为N<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list[N:]：从索引为N截取到最后<br>&nbsp;&nbsp;&nbsp;&nbsp;通过索引进行替换<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list[N] = newValue：替换索引为N的值</li>
+<li><p>BIF<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>list.append(value)</strong>：往列表中添加新值<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一般配合for遍历添加列表<br>&nbsp;&nbsp;&nbsp;&nbsp;list.insert(index, value)：指定索引插入新值<br>&nbsp;&nbsp;&nbsp;&nbsp;list.index(value)：查看某个值的索引<br>&nbsp;&nbsp;&nbsp;&nbsp;list.count(value)：统计某值的出现的次数<br>&nbsp;&nbsp;&nbsp;&nbsp;list.extent(list)：合并两个列表为一个列表<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运算符<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list1 + list2：两个列表拼接<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list1 * 3：列表乘倍<br>&nbsp;&nbsp;&nbsp;&nbsp;list.sort()：对列表进行从小到大排序<br>&nbsp;&nbsp;&nbsp;&nbsp;list.reverse()：对列表进行反转<br>&nbsp;&nbsp;&nbsp;&nbsp;list.pop()：取出一个值，并且在列表中删除此值，没参数默认从最后一个<br>&nbsp;&nbsp;&nbsp;&nbsp;list.remove()：删除一个值</p>
+</li>
+<li><p>一般配合使用函数<br>&nbsp;&nbsp;&nbsp;&nbsp;del list[k]：删除一个列表元素<br>&nbsp;&nbsp;&nbsp;&nbsp;列表成员判断(bool)：in | not in<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>len(list)</strong>：列表长度<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>enumrate(list[, start])</strong>：输出列表索引化</p>
+<pre><code>for index,value enumrate(list, 1):
+    print index, value    
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>zip(list1, list2)</strong>：聚合多个<strong>等长</strong>列表，将相同索引的值合并为元组</p>
+<pre><code>for li1,li2 in zip (list1,list2):
+    print li1, li2
+==============================
+tzip = zip(list1, list2)
+li1, li2= zip(*tzip)
+</code></pre></li>
+</ul>
+<h3 id="元组-tuple"><a href="#元组-tuple" class="headerlink" title="元组  tuple - ()"></a>元组  tuple - ()</h3><ul>
+<li>定义：tup = tuple(list)</li>
+<li><strong>不可变列表</strong>，不能在定义后增删改该列表</li>
+<li>通过索引或遍历的方式取值</li>
+<li>BIF<br>&nbsp;&nbsp;&nbsp;&nbsp;tup.count()<br>&nbsp;&nbsp;&nbsp;&nbsp;tup.index()</li>
+</ul>
+<h3 id="集合-set"><a href="#集合-set" class="headerlink" title="集合 set - {}"></a>集合 set - {}</h3><ul>
+<li><strong>去除重复的列表</strong></li>
+<li>定义：s = set(list)</li>
+<li>无序可变</li>
+<li>BIF<br>&nbsp;&nbsp;&nbsp;&nbsp;set.add(value)：添加<br>&nbsp;&nbsp;&nbsp;&nbsp;set.update(list)：合并<br>&nbsp;&nbsp;&nbsp;&nbsp;set.remove(value)：删除<br>&nbsp;&nbsp;&nbsp;&nbsp;set.pop()：出栈</li>
+<li>功能<br>&nbsp;&nbsp;&nbsp;&nbsp;成员关系测试<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in / not in<br>&nbsp;&nbsp;&nbsp;&nbsp;集合关联<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交集 - | ：两个列表合并输出<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;并集 - &amp; ：两个列表共同拥有的元素<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;补集 - - ：两个列表中不共同的元素</li>
+</ul>
+<h3 id="字典-dict"><a href="#字典-dict" class="headerlink" title="字典 dict - {}"></a>字典 dict - {}</h3><ul>
+<li>定义：di = dict() | di = {[key:value]}</li>
+<li><strong>输出所有键值时乱序</strong></li>
+<li>键值对应的方式进行数据取值<br>&nbsp;&nbsp;&nbsp;&nbsp;dict[key]</li>
+<li>添加数值<br>&nbsp;&nbsp;&nbsp;&nbsp;dict[newkey] = newvalue</li>
+<li>BIF<br>&nbsp;&nbsp;&nbsp;&nbsp;dict.update(dict2)：合并两个字典<br>&nbsp;&nbsp;&nbsp;&nbsp;dict.keys()：列表的形式返回字典的所有键<br>&nbsp;&nbsp;&nbsp;&nbsp;dict.values()：列表的形式返回字典所有的值<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>dict.items()</strong>：元组列表的形式返回字典的键值<br>&nbsp;&nbsp;&nbsp;&nbsp;dict.has_key(key)：判断(bool)字典中是否存在该键<br>&nbsp;&nbsp;&nbsp;&nbsp;dict.get(key)：获得字典中的指定键的值<br>&nbsp;&nbsp;&nbsp;&nbsp;dict.pop()：返回一个键值并删除<br>&nbsp;&nbsp;&nbsp;&nbsp;dict.clear()：删除所有键值</li>
+</ul>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><ul>
+<li>int()<br>&nbsp;&nbsp;&nbsp;&nbsp;可以将str类型的数字转为int型数字<br>&nbsp;&nbsp;&nbsp;&nbsp;字母不能进行int()转换</li>
+<li>str()</li>
+<li>list()</li>
+<li>tuple()<br>&nbsp;&nbsp;&nbsp;&nbsp;将列表形式类型转换为元组</li>
+<li>set()<br>&nbsp;&nbsp;&nbsp;&nbsp;将列表形式类型转换为集合</li>
+<li>iter()<br>&nbsp;&nbsp;&nbsp;&nbsp;将列表形式类型转换为迭代器</li>
+</ul>
+<center>
+
+<h2 id="控制语句"><a href="#控制语句" class="headerlink" title="控制语句"></a>控制语句</h2><p></p></center><br><strong>所有的语句皆可以进行套嵌</strong>，先结束内层循环后才会返回执行上一层循环,套嵌之后避免内存溢出必需要有结束条件<p></p>
+<h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><h4 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h4><ul>
+<li><strong>break</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;跳出整个循环循环,结束循环</li>
+<li><strong>continue</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;跳过本次循环，回到判断条件</li>
+<li><strong>pass</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;忽略本次循环，进入下次循环</li>
+</ul>
+<h4 id="for"><a href="#for" class="headerlink" title="for"></a>for</h4><ul>
+<li>遍历列表元素</li>
+<li>format<pre><code>for 临时变量 in 可迭代对象:
+    CODE
+</code></pre></li>
+<li>可迭代对象<br>&nbsp;&nbsp;&nbsp;&nbsp;列表/元组/字典/集合(多个元素)<br>&nbsp;&nbsp;&nbsp;&nbsp;len()/range()/enumrate()/zip()</li>
+<li>三元表达式<pre><code>li = [x for x in range(10)]
+</code></pre></li>
+</ul>
+<h4 id="while-bool"><a href="#while-bool" class="headerlink" title="while(bool)"></a>while(bool)</h4><ul>
+<li>根据条件循环</li>
+<li>format<pre><code>while CONDITION[True]:
+    CODE
+</code></pre></li>
+</ul>
+<h3 id="判断-if-bool"><a href="#判断-if-bool" class="headerlink" title="判断 - if(bool)"></a>判断 - if(bool)</h3><ul>
+<li>if<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>format：</strong><pre><code>if CONDITION:
+    CODE
+elif CONDITION:
+    CODE
+...
+else:
+    CODE
+</code></pre>&nbsp;&nbsp;&nbsp;&nbsp;多重条件:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONDITION1 <strong>and[or not(!)]</strong> CONDITION2<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>三元表达式：</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>format</strong>：<pre><code>CODE1 if CONDITION else CODE2
+</code></pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果CONDITION成立则执行CODE1，否则执行CODE2</li>
+</ul>
+<h3 id="异常处理-try"><a href="#异常处理-try" class="headerlink" title="异常处理(try)"></a>异常处理(try)</h3><ul>
+<li>format<pre><code>try:
+    CODE
+except [Exception]:
+    CODE
+except (exception1, exception2):
+    CODE
+except Exception as e:
+    CODE
+    print e
+else:
+    CODE
+finally:
+    CODE
+</code></pre><strong>如果try里面的代码块出现异常(抛出运行错误信息)，就会执行except代码块内容，如果try整个代码块能够顺利运行就执行else内容(反之不执行)，finally是无论代码块有无异常在最后都会执行的代码块</strong></li>
+<li><strong>Exception</strong>：无论出现何种异常(有特殊)，都会执行该代码块，as e为该异常的信息</li>
+<li><strong>[Exception]</strong>：针对特定异常来执行该代码块<pre><code>                                 常见异常类型
+AttributeError：属性错误
+IOError：输入/输出错误，一般为无法打开文件
+ImportError：模块导入错误，一般为路径、名称错误或模块未安装
+IndexError：索引错误
+KeyError：访问字典不存在的键
+KeyboardInterrupt：键入Ctrl+C。不能由全局异常捕捉
+EOFError：键入Ctrl+D
+NameError：变量未被定义
+IndentationError：语法错误，一般为代码缩进。不能由全局异常捕捉
+SyntaxError：编译错误，代码语法错误。不能由全局异常捕捉
+TypeError：传入对象类型与要求不符
+AssertionError：断言触发异常
+</code></pre></li>
+</ul>
+<h4 id="自定义异常-raise"><a href="#自定义异常-raise" class="headerlink" title="自定义异常 raise"></a>自定义异常 raise</h4><ul>
+<li>重写异常类<pre><code>class MyException(Exception):
+    def __init__(self, msg):
+        self.message = msg
+    def __str__(self):
+        return self.message
+try:
+    CODE
+    raise MyException(&apos;this input exception message&apos;)
+except MyExceotion as e:
+    print e
+</code></pre><strong>初始化异常时传入异常提示的信息，再通过__str__返回异常信息</strong></li>
+<li><strong>raise</strong>：如果想出发自定义异常需要手动raise触发且传入该异常的错误信息</li>
+<li><strong>涉及业务逻辑，需要自定义一些业务逻辑需要的异常</strong></li>
+</ul>
+<h4 id="断言-assert"><a href="#断言-assert" class="headerlink" title="断言 assert"></a>断言 assert</h4><ul>
+<li><p>format：</p>
+<pre><code>assert CONDITION
+</code></pre></li>
+<li><p><strong>用于明确判断前面代码块是否符号某个条件才能让程序继续执行，否则让程序抛出异常</strong></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/04/IP/" rel="next" title="IP">
+                <i class="fa fa-chevron-left"></i> IP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/07/迭代生成装饰递归/" rel="prev" title="迭代生成装饰递归排序">
+                迭代生成装饰递归排序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Wang YingYing" />
+            
+              <p class="site-author-name" itemprop="name">Wang YingYing</p>
+              <p class="site-description motion-element" itemprop="description">自己选的路，跪着是走不完的</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符"><span class="nav-number">1.</span> <span class="nav-text">操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#占位符"><span class="nav-number">2.</span> <span class="nav-text">占位符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型"><span class="nav-number">3.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型"><span class="nav-number">3.1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串-str-“”"><span class="nav-number">3.2.</span> <span class="nav-text">字符串 str - “”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表-list"><span class="nav-number">3.3.</span> <span class="nav-text">列表 list - []</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元组-tuple"><span class="nav-number">3.4.</span> <span class="nav-text">元组  tuple - ()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合-set"><span class="nav-number">3.5.</span> <span class="nav-text">集合 set - {}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字典-dict"><span class="nav-number">3.6.</span> <span class="nav-text">字典 dict - {}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型转换"><span class="nav-number">3.7.</span> <span class="nav-text">类型转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制语句"><span class="nav-number">4.</span> <span class="nav-text">控制语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#循环"><span class="nav-number">4.1.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关键字"><span class="nav-number">4.1.1.</span> <span class="nav-text">关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#for"><span class="nav-number">4.1.2.</span> <span class="nav-text">for</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#while-bool"><span class="nav-number">4.1.3.</span> <span class="nav-text">while(bool)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断-if-bool"><span class="nav-number">4.2.</span> <span class="nav-text">判断 - if(bool)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理-try"><span class="nav-number">4.3.</span> <span class="nav-text">异常处理(try)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义异常-raise"><span class="nav-number">4.3.1.</span> <span class="nav-text">自定义异常 raise</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#断言-assert"><span class="nav-number">4.3.2.</span> <span class="nav-text">断言 assert</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang YingYing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </div>
+
+<!--  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

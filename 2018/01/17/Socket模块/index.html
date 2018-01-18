@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="计算机网络基础,Python模块," />
+  <meta name="keywords" content="计算机网络基础,Python,Python模块," />
 
 
 
@@ -87,23 +87,23 @@
 
 
 <meta name="description" content="TCP/UDP讲解、Python Socket模块的使用及实例">
-<meta name="keywords" content="计算机网络基础,Python模块">
+<meta name="keywords" content="计算机网络基础,Python,Python模块">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCP&#x2F;UDP、Socket模块">
-<meta property="og:url" content="http://yoursite.com/2018/01/04/Socket模块/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/01/17/Socket模块/index.html">
 <meta property="og:site_name" content="BEHIND THE GROWTH">
 <meta property="og:description" content="TCP/UDP讲解、Python Socket模块的使用及实例">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/01/04/Socket模块/tcp_udp.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/01/04/Socket模块/tcp.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/01/04/Socket模块/udp.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/04/Socket模块/socket.png">
-<meta property="og:image" content="http://yoursite.com/2018/01/04/Socket模块/scanport.png">
-<meta property="og:updated_time" content="2018-01-09T07:45:42.411Z">
+<meta property="og:image" content="http://yoursite.com/2018/01/17/Socket模块/tcp_udp.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/01/17/Socket模块/tcp.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/01/17/Socket模块/udp.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/17/Socket模块/socket.png">
+<meta property="og:image" content="http://yoursite.com/2018/01/17/Socket模块/scanport.png">
+<meta property="og:updated_time" content="2018-01-17T14:54:18.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP&#x2F;UDP、Socket模块">
 <meta name="twitter:description" content="TCP/UDP讲解、Python Socket模块的使用及实例">
-<meta name="twitter:image" content="http://yoursite.com/2018/01/04/Socket模块/tcp_udp.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/01/17/Socket模块/tcp_udp.jpg">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/01/04/Socket模块/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/17/Socket模块/"/>
 
 
 
@@ -276,7 +276,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/Socket模块/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/17/Socket模块/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wang YingYing">
@@ -305,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T15:15:15+08:00">
-                2018-01-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-17T00:21:18+08:00">
+                2018-01-17
               </time>
             
 
@@ -374,16 +374,34 @@
 
 <h2 id="网络通信原理"><a href="#网络通信原理" class="headerlink" title="网络通信原理"></a>网络通信原理</h2><p></p></center><br>基于OSI七层模型中的<strong>传输层</strong><p></p>
 <ul>
-<li>TCP：可靠(不代表安全)的传输协议、基于三次握手(SYN -&gt; ACK/SYN -&gt; ACK),相对于UDP效率低<br><img src="/2018/01/04/Socket模块/tcp_udp.jpg" alt="TCP"></li>
-<li>UDP：不可靠的传输协议、面向无连接，只负责发送，不管是否到达，不基于握手模式，效率高于UDP<br><center>TCP/UDP</center><br><table><tr><br><td><img src="/2018/01/04/Socket模块/tcp.jpg" alt="tcp"></td><br><td><img src="/2018/01/04/Socket模块/udp.png" alt="udp"></td><br></tr></table><br>SOCKET - 套接字：(IP,PORT)<br><hr><br><center><h2 id="Socket模块"><a href="#Socket模块" class="headerlink" title="Socket模块"></a>Socket模块</h2></center><br>整体流程图<br><img src="/2018/01/04/Socket模块/socket.png" alt="SOCKET"><h3 id="监听、连接"><a href="#监听、连接" class="headerlink" title="监听、连接"></a>监听、连接</h3><strong><em>obj = socket.socket()</em></strong>：创建套接字对象 (C/S)<br>&nbsp;&nbsp;&nbsp;&nbsp;参数一：socket.AF_INET[6] - IPv4[6]、AF_UNIX - unix<br>&nbsp;&nbsp;&nbsp;&nbsp;参数二：socket.SOCK_STREAM - TCP | socket.SOCK_DGRAM - UDP<br>obj.setblocking(0|1)：设置是否需要阻塞<br>&nbsp;&nbsp;&nbsp;&nbsp;0：非阻塞<br>&nbsp;&nbsp;&nbsp;&nbsp;1：阻塞<br>obj.settimeout(time)：设置连接超时时间<br><strong><em>obj.bind(SOCKET)</em></strong>：申请绑定本地的一个端口进行监听 (S)<br>&nbsp;&nbsp;&nbsp;&nbsp;SOCKET=(ip,port) - 本地监听的套接字<br><strong><em>obj.listen(NUM)</em></strong>：设置最大的监听请求数 (S)<br>&nbsp;&nbsp;&nbsp;&nbsp;NUM - 默认为1,一般设置为5就够了<br><strong><em>conn,address = obj.accept()</em></strong> : 等待客户端连接 (S、<strong>阻塞会话</strong>)<br>返回值：<br>&nbsp;&nbsp;&nbsp;&nbsp;conn - 连接成功的会话对象<br>&nbsp;&nbsp;&nbsp;&nbsp;address(ip,port) - 连接进来的套接字<br><strong><em>obj.connect(SOCKET)</em></strong>：主动去连接一个监听中的端口 (C)<br>&nbsp;&nbsp;&nbsp;&nbsp;SOCKET=(ip,port) - 服务器端的套接字<h3 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h3>obj.send(data) - 向连接的另一方发送数据 (C/S)<br>obj.recv(length) - 接收来自另一方的数据 (C/S、<strong>阻塞会话</strong>)<hr>
-
-</li>
+<li>TCP：可靠(不代表安全)的传输协议、基于三次握手(SYN -&gt; ACK/SYN -&gt; ACK),相对于UDP效率低<br><img src="/2018/01/17/Socket模块/tcp_udp.jpg" alt="TCP"></li>
+<li>UDP：不可靠的传输协议、面向无连接，只负责发送，不管是否到达，不基于握手模式，效率高于UDP<br><center>TCP/UDP</center><br><table><tr><br><td><img src="/2018/01/17/Socket模块/tcp.jpg" alt="tcp"></td><br><td><img src="/2018/01/17/Socket模块/udp.png" alt="udp"></td><br></tr></table><br>SOCKET - 套接字：(IP,PORT)<br><hr><br><center><h2 id="Socket模块"><a href="#Socket模块" class="headerlink" title="Socket模块"></a>Socket模块</h2></center><br>整体流程图<br><img src="/2018/01/17/Socket模块/socket.png" alt="SOCKET"><h3 id="监听、连接"><a href="#监听、连接" class="headerlink" title="监听、连接"></a>监听、连接</h3><strong><em>obj = socket.socket()</em></strong>：创建套接字对象 (C/S)<br>&nbsp;&nbsp;&nbsp;&nbsp;参数一：socket.AF_INET[6] - IPv4[6]、AF_UNIX - unix<br>&nbsp;&nbsp;&nbsp;&nbsp;参数二：socket.SOCK_STREAM - TCP | socket.SOCK_DGRAM - UDP<br>obj.setblocking(0|1)：设置是否需要阻塞<br>&nbsp;&nbsp;&nbsp;&nbsp;0：非阻塞<br>&nbsp;&nbsp;&nbsp;&nbsp;1：阻塞<br>obj.settimeout(time)：设置连接超时时间<br><strong><em>obj.bind(SOCKET)</em></strong>：申请绑定本地的一个端口进行监听 (S)<br>&nbsp;&nbsp;&nbsp;&nbsp;SOCKET=(ip,port) - 本地监听的套接字<br><strong><em>obj.listen(NUM)</em></strong>：设置最大的监听请求数 (S)<br>&nbsp;&nbsp;&nbsp;&nbsp;NUM - 默认为1,一般设置为5就够了<br><strong><em>conn,address = obj.accept()</em></strong> : 等待客户端连接 (S、<strong>阻塞会话</strong>)<br>返回值：<br>&nbsp;&nbsp;&nbsp;&nbsp;conn - 连接成功的会话对象<br>&nbsp;&nbsp;&nbsp;&nbsp;address(ip,port) - 连接进来的套接字<br><strong><em>obj.connect(SOCKET)</em></strong>：主动去连接一个监听中的端口 (C)<br>&nbsp;&nbsp;&nbsp;&nbsp;SOCKET=(ip,port) - 服务器端的套接字<h3 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h3>obj.send(data) - 向连接的另一方发送数据 (C/S)<br>obj.recv(length) - 接收来自另一方的数据 (C/S、<strong>阻塞会话</strong>)<h3 id="BIF"><a href="#BIF" class="headerlink" title="BIF"></a>BIF</h3>&nbsp;&nbsp;&nbsp;&nbsp;socket.gethostname()：返回当前主机名<br>&nbsp;&nbsp;&nbsp;&nbsp;socket.gethostbyname(hostname)：返回参数(主机名)对应的IP<br>&nbsp;&nbsp;&nbsp;&nbsp;socket.getservbyport(port[,protocol])：返回端口对应的协议类型<br>&nbsp;&nbsp;&nbsp;&nbsp;socket.getservbyname(protocol[,])：返回协议类型对应的端口<br>&nbsp;&nbsp;&nbsp;&nbsp;进制转换<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket.inet_aton(ip)：将IP转换为32位的二进制格式(binary)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket.inet_ntoa(binary)：将binary转换为IP格式(十进制)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;转换为长字节(32-bit)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket.ntohl[htonl](data)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;转换为短字节(16-bit)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sock.ntohs[htons](data)</li>
 </ul>
+<h3 id="实现异步"><a href="#实现异步" class="headerlink" title="实现异步"></a>实现异步</h3><ul>
+<li>模块：<strong>socketserver</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;1、重构socketserver.BaseRequestHandler为自定义类<br>&nbsp;&nbsp;2、将自定义的类但做参数传给[server = ]socketserver.ThreadingTCPServer((SOCKET), MyTCPHandler)<br>&nbsp;&nbsp;&nbsp;&nbsp;3、启动实例的对象 - server.serve_forever()</li>
+</ul>
+<pre><code>import socketserver
+class MyTCPHandler(scokerserver.BaseRequestHandler):
+    def handle(self):
+        &quot;&quot;&quot;
+        定义创建socketServer
+        self.request -&gt; conn对象
+        &quot;&quot;&quot;
+        print &quot;New Conn:&quot;, self.client_address
+        data = self.request.recv(1024)
+        print &quot;CLient Says:&quot;, data
+        self.request.send(data)
+if __name__ == &apos;__main__&apos;:
+    HOST, PORT = &quot;127.0.0.1&quot;, 8888
+    server = socketserver.ThreadingTCPServer((HOST,PORT), MyTCPHandler)
+    server.serve_forever()
+</code></pre><hr>
+
 <center>
 
 <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p></p></center><p></p>
 <h3 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h3><ul>
-<li>原理:使用connect()去尝试连接主机端口，如果端口没有开放便会触发拒绝连接(Connection refused)的异常<br><img src="/2018/01/04/Socket模块/scanport.png" alt="connect"><br>简单测试脚本</li>
+<li>原理:使用connect()去尝试连接主机端口，如果端口没有开放便会触发拒绝连接(Connection refused)的异常<br><img src="/2018/01/17/Socket模块/scanport.png" alt="connect"><br>简单测试脚本</li>
 </ul>
 <pre><code>#coding:utf-8
 import socket
@@ -633,6 +651,8 @@ if client_ack == &quot;CLIENT_READY_TO_RECV&quot;:
           
             <a href="/tags/计算机网络基础/" rel="tag"><i class="fa fa-tag"></i> 计算机网络基础</a>
           
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
             <a href="/tags/Python模块/" rel="tag"><i class="fa fa-tag"></i> Python模块</a>
           
         </div>
@@ -646,8 +666,8 @@ if client_ack == &quot;CLIENT_READY_TO_RECV&quot;:
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/04/IP/" rel="next" title="IP">
-                <i class="fa fa-chevron-left"></i> IP
+              <a href="/2018/01/17/文件操作/" rel="next" title="Python文件操作模块">
+                <i class="fa fa-chevron-left"></i> Python文件操作模块
               </a>
             
           </div>
@@ -656,8 +676,8 @@ if client_ack == &quot;CLIENT_READY_TO_RECV&quot;:
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/01/05/python执行终端命令/" rel="prev" title="python(Shell)执行终端命令">
-                python(Shell)执行终端命令 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/17/python执行终端命令/" rel="prev" title="Python(Shell)执行终端命令模块">
+                Python(Shell)执行终端命令模块 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -739,7 +759,7 @@ if client_ack == &quot;CLIENT_READY_TO_RECV&quot;:
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -750,7 +770,7 @@ if client_ack == &quot;CLIENT_READY_TO_RECV&quot;:
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -763,7 +783,7 @@ if client_ack == &quot;CLIENT_READY_TO_RECV&quot;:
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -796,7 +816,7 @@ if client_ack == &quot;CLIENT_READY_TO_RECV&quot;:
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络通信原理"><span class="nav-number">1.</span> <span class="nav-text">网络通信原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket模块"><span class="nav-number">2.</span> <span class="nav-text">Socket模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#监听、连接"><span class="nav-number">2.1.</span> <span class="nav-text">监听、连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传输"><span class="nav-number">2.2.</span> <span class="nav-text">数据传输</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">3.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口扫描"><span class="nav-number">3.1.</span> <span class="nav-text">端口扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交互聊天终端"><span class="nav-number">3.2.</span> <span class="nav-text">交互聊天终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟SSH"><span class="nav-number">3.3.</span> <span class="nav-text">模拟SSH</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络通信原理"><span class="nav-number">1.</span> <span class="nav-text">网络通信原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket模块"><span class="nav-number">2.</span> <span class="nav-text">Socket模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#监听、连接"><span class="nav-number">2.1.</span> <span class="nav-text">监听、连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传输"><span class="nav-number">2.2.</span> <span class="nav-text">数据传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BIF"><span class="nav-number">2.3.</span> <span class="nav-text">BIF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现异步"><span class="nav-number">2.4.</span> <span class="nav-text">实现异步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">3.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口扫描"><span class="nav-number">3.1.</span> <span class="nav-text">端口扫描</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交互聊天终端"><span class="nav-number">3.2.</span> <span class="nav-text">交互聊天终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟SSH"><span class="nav-number">3.3.</span> <span class="nav-text">模拟SSH</span></a></li></ol></li></ol></div>
             
 
           </div>

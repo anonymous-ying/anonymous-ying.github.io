@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Python模块," />
+  <meta name="keywords" content="Python,Python模块," />
 
 
 
@@ -86,18 +86,18 @@
 
 
 
-<meta name="description" content="调用os | subprocess执行终端命令">
-<meta name="keywords" content="Python模块">
+<meta name="description" content="Python脚本参数解析模块 - (sys、optparse、argparse)">
+<meta name="keywords" content="Python,Python模块">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python(Shell)执行终端命令">
-<meta property="og:url" content="http://yoursite.com/2018/01/05/python执行终端命令/index.html">
+<meta property="og:title" content="Python脚本参数处理模块">
+<meta property="og:url" content="http://yoursite.com/2018/01/17/Python脚本参数处理模块/index.html">
 <meta property="og:site_name" content="BEHIND THE GROWTH">
-<meta property="og:description" content="调用os | subprocess执行终端命令">
+<meta property="og:description" content="Python脚本参数解析模块 - (sys、optparse、argparse)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-05T14:51:51.308Z">
+<meta property="og:updated_time" content="2018-01-17T14:49:36.949Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python(Shell)执行终端命令">
-<meta name="twitter:description" content="调用os | subprocess执行终端命令">
+<meta name="twitter:title" content="Python脚本参数处理模块">
+<meta name="twitter:description" content="Python脚本参数解析模块 - (sys、optparse、argparse)">
 
 
 
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/01/05/python执行终端命令/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/17/Python脚本参数处理模块/"/>
 
 
 
 
 
-  <title>python(Shell)执行终端命令 | BEHIND THE GROWTH</title>
+  <title>Python脚本参数处理模块 | BEHIND THE GROWTH</title>
   
 
 
@@ -270,7 +270,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/05/python执行终端命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/17/Python脚本参数处理模块/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wang YingYing">
@@ -287,7 +287,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python(Shell)执行终端命令</h1>
+          <h1 class="post-title" itemprop="name headline">Python脚本参数处理模块</h1>
         
 
         <div class="post-meta">
@@ -299,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T17:04:00+08:00">
-                2018-01-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-17T00:21:34+08:00">
+                2018-01-17
               </time>
             
 
@@ -346,7 +346,7 @@
 
           
               <div class="post-description">
-                  调用os | subprocess执行终端命令
+                  Python脚本参数解析模块 - (sys、optparse、argparse)
               </div>
           
 
@@ -363,27 +363,93 @@
       
 
       
-        <h2 id="pythonShell使用"><a href="#pythonShell使用" class="headerlink" title="pythonShell使用"></a>pythonShell使用</h2><ul>
-<li><strong>%run file.py</strong>：执行python文件</li>
-<li><strong>who[s]</strong>：查看当前shell中的变量</li>
-<li><strong>reset</strong>：清空当前shell中的变量</li>
-<li><strong>dir(module)</strong>：查看模块可用函数、变量</li>
-<li><strong>type(value)</strong>：查看变量的类型</li>
-<li><strong>func?[help(func)]</strong>：查看函数帮助</li>
-<li>执行终端命令： <strong>!command</strong> - 可以将命令结果保存为变量</li>
+        <center>
+
+<h2 id="sys"><a href="#sys" class="headerlink" title="sys"></a>sys</h2><p></p></center><p></p>
+<ul>
+<li><strong>sys.argv</strong>：列表的形式返回外部参数，实现参数解析，程序外部向内部赋值<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>列表第一个值为脚本自身文件名</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;参数：sys.argv[1:]<br>&nbsp;&nbsp;&nbsp;&nbsp;识别空格(可以间隔多个空格)，作为参数解析</li>
+<li><strong>sys.path</strong>：列表的形式返回Python模块的环境变量<br>&nbsp;&nbsp;&nbsp;&nbsp;用于添加自定义模块的路径</li>
+<li><strong>sys.platform</strong>：字符串的形式返回系统类型</li>
+<li><strong>sys.getdefaultencoding()</strong>：字符串的形式返回系统当前的编码，默认ascii</li>
+<li><strong>sys.setdefaultencoding(ENCODING)</strong>：设置系统的默认编码<br>&nbsp;&nbsp;&nbsp;&nbsp;必需先reload(sys)才可以执行该函数</li>
+<li><strong>sys.getfilesystemencoding()</strong>：字符串的形式返回文件系统使用的编码</li>
 </ul>
-<p><hr><br><strong>当调用执行命令模块的时候，生成一个子shell来执行命令，执行完成后再关闭子shell(子进程)</strong></p>
+<p><hr></p>
 <center>
 
-<h2 id="OS模块"><a href="#OS模块" class="headerlink" title="OS模块"></a>OS模块</h2><p></p></center><p></p>
-<h3 id="os-system"><a href="#os-system" class="headerlink" title="os.system()"></a><strong>os.system()</strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;格式：os.system(command)<br>&nbsp;&nbsp;&nbsp;&nbsp;返回值：命令执行的状态码<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0：命令正常执行<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!=0：命令执行错误<br>&nbsp;&nbsp;&nbsp;&nbsp;应用场景：只需要命令执行的结果，不用将命令的结果输出</p>
-<h3 id="os-popen"><a href="#os-popen" class="headerlink" title="os.popen()"></a><strong>os.popen()</strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;格式：os.popen(command)<br>&nbsp;&nbsp;&nbsp;&nbsp;返回值：一个文件对象，命令将执行的结果写入一个临时文件，通过read()读取命令的执行结果<br>&nbsp;&nbsp;&nbsp;&nbsp;应用场景：需要调用命令的执行结果</p>
+<h2 id="optparse"><a href="#optparse" class="headerlink" title="optparse"></a>optparse</h2><p></p></center><p></p>
+<h3 id="1、实例化参数解析对象"><a href="#1、实例化参数解析对象" class="headerlink" title="1、实例化参数解析对象"></a>1、<strong>实例化参数解析对象</strong></h3><p><strong>parser = optparse.OptionParser(‘USE_HELP’[, usage=’USE_HELP’, version=’INFO’, description=’MSG’])</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%prog：当前脚本名称</p>
+<pre><code>USE_HELP = &quot;usage: %prog -h &lt;help doc&gt; -a &lt;all&gt; --argument &lt;argument&gt;&quot;
+</code></pre><h3 id="2、设置参数"><a href="#2、设置参数" class="headerlink" title="2、设置参数"></a>2、<strong>设置参数</strong></h3><p><strong>parser.add_option([OPTION])</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;默认使用-h/–help选先(–version,需先定义version)<br><strong>OPTION</strong></p>
+<ul>
+<li><strong>-</strong>：简写参数<br>&nbsp;&nbsp;&nbsp;&nbsp;不支持长参数 -&gt; -all<br>&nbsp;&nbsp;&nbsp;&nbsp;参数可以连起来，也可以识别空格</li>
+<li><strong>--argument</strong>：全称参数 &lt;=&gt; dest=’argument’<br>&nbsp;&nbsp;&nbsp;&nbsp;可以识别=号分割，也可以识别空格<br>&nbsp;&nbsp;&nbsp;&nbsp;声明该选项相当与定义了dest选项的变量为argument</li>
+<li>dest：声明存储参数的变量名<br>&nbsp;&nbsp;&nbsp;&nbsp;被parse_args()的第一个返回值(option)解析对应</li>
+<li>action：进行参数处理<br>&nbsp;&nbsp;&nbsp;&nbsp;store：将对应参数存储到dest指定变量，默认<br>&nbsp;&nbsp;&nbsp;&nbsp;store_true[false]：如果dest没对应参数将设置为true[false]<br>&nbsp;&nbsp;&nbsp;&nbsp;append：以列表的形式将参数存储到dest<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;多次指定对应参数才能达到添加多个值到列表的效果…</li>
+<li><strong>type</strong>：参数的值类型(限定传参时候的类型,而不是传入后的类型)<br>&nbsp;&nbsp;&nbsp;&nbsp;单字符类型：int、str、float<br>&nbsp;&nbsp;&nbsp;&nbsp;选择类型：choice</li>
+<li>choices=[list]：当type为choice使用</li>
+<li>default：设置该参数的默认值</li>
+<li><strong>help</strong>：该参数的使用帮助</li>
+</ul>
+<h3 id="3、解析参数"><a href="#3、解析参数" class="headerlink" title="3、解析参数"></a>3、<strong>解析参数</strong></h3><p><strong>option, args = parse.parse_args()</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>option</strong>：调用参数设置的dest<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字典形式 - {dest:argument}<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>args</strong>：没被解析的命令行参数列表<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个dest只能对应一个argument，如果是多个参数对应一个dest将会被视为没被解析的参数</p>
+<h3 id="4、赋值参数"><a href="#4、赋值参数" class="headerlink" title="4、赋值参数"></a>4、<strong>赋值参数</strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>arg1 = option.DEST</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;做参数不为空处理</p>
+<pre><code>if option.DEST == None:
+    print parser.usage
+</code></pre><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code>#coding:utf-8
+import optparse
+
+def main():
+    parser = optparse.OptionParser(&apos;%prog -H &lt;specify target host[s] -p &lt;specify target port[s]&gt; -m &lt;specify attack module&gt;&apos;)
+    parser.add_option(&apos;-H&apos;, &apos;--host&apos;, type=&apos;string&apos;, help=&apos;specify target ip[s]&apos;)
+    parser.add_option(&apos;-p&apos;, &apos;--port&apos;, type=&apos;int&apos;, default=80, help=&apos;specify target port[s]&apos;)
+    parser.add_option(&apos;-m&apos;, &apos;--module&apos;, type=&apos;choice&apos;, choices=[&apos;tcp&apos;, &apos;udp&apos;, &apos;syn&apos;], help=&apos;specify attack module&apos;)
+    options, args = parser.parse_args()
+
+    if options.host == None and options.module == None:
+        print parser.usage
+        exit(0)
+
+    print options, args
+    host = options.host
+    port = options.port
+    module = options.module
+    for host in args:
+        print host, type(host), port, type(port), module, type(module)
+
+if __name__ == &apos;__main__&apos;:
+    main()
+</code></pre><h3 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h3><p><strong>怎么更好的解决一个参数可以传多个值，在不重复使用参数的时候(append)？？？</strong></p>
+<p><hr></p>
 <center>
 
-<h2 id="subprocess模块"><a href="#subprocess模块" class="headerlink" title="subprocess模块"></a>subprocess模块</h2><p></p></center><p></p>
-<h3 id="subprocess-call"><a href="#subprocess-call" class="headerlink" title="subprocess.call()"></a><strong>subprocess.call()</strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;格式：subprocess.call(command,shell=True)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数一：command - 默认需要以列表的方式来拼接commad的参数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数二：shell=True - 不使用列表的方式，直接以终端方式执行<br>&nbsp;&nbsp;&nbsp;&nbsp;返回值(同os.system)：命令执行的状态码</p>
-<h3 id="subprocess-Popen"><a href="#subprocess-Popen" class="headerlink" title="subprocess.Popen()"></a><strong>subprocess.Popen()</strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;格式：subprocess.Popen(command,shell=True,stdout[stdin|stderr])<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;参数三：<strong>stdout[stdin|stderr] = subprocess.PIPE</strong> - 因为命令的执行实在子shell中执行的，如果需要将子shell(子进程)的数据传回父shell需要进行进程间通信，使用一个subprocess的PIPE管道函数将执行的结果返回给父shell<br>&nbsp;&nbsp;&nbsp;&nbsp;返回值：subprocess.Popen对象<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;读返回值：obj.stdout - 文件对象，通过read()读文件</p>
+<h2 id="argparse"><a href="#argparse" class="headerlink" title="argparse"></a>argparse</h2><p></p></center><br><strong>类似optparse， 维护版optparse, 支持-的长参数以及一个dest传入多个参数(列表形式)</strong><br>1、实例化解析对象<br><strong>parser = argparse.ArgumentParser(usage=’USE_HELP’[, version=’INFO’, description=’MSG’])</strong><br>2、参数设置<br><strong>parser.add_argument([OPTION])</strong><br>区别于optparse的OPTION<p></p>
+<ul>
+<li>指定type时候不需要单引号阔起(int, str, float)</li>
+<li>choices=[list], 不需要声明类型为choice，但需要声明输入的类型</li>
+<li><strong>nargs</strong>：参数的个数(解决optparse的坑) - nargs=’? | * | +’<br>&nbsp;&nbsp;&nbsp;&nbsp;？：必需传一个参数<br>&nbsp;&nbsp;&nbsp;&nbsp;*：0到多个参数<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>+</strong>：1到多个参数</li>
+</ul>
+<p>3、解析参数<br><strong>args = parser.parse_args()</strong><br>args：名称空间类型<br>通过args.DEST直接引用参数</p>
+<p>4、赋值参数<br><strong>arg1 = args.DEST</strong><br>参数错误或者不想让参数为空提示帮助信息<br>if args.DEST == None:<br>    parser.print_help()<br>    exit(0)<br>示例</p>
+<pre><code>import argparse
+def main():
+    parser = argparse.ArgumentParser(usage=&apos;%(prog)s -H &lt;specify target host&gt; -p &lt;specify target port[s]&gt; -m &lt;specify attack module&gt;&apos;, description=&apos;menber the hosts and ports&apos;)
+    parser.add_argument(&apos;-H&apos;, &apos;--host&apos;, dest=&apos;host&apos;, type=str, default=&apos;127.0.0.1&apos;, help=&apos;specify the target host address(ip)&apos;)
+    parser.add_argument(&apos;-p&apos;, &apos;--port&apos;, type=str, nargs=&apos;+&apos;, help=&apos;specify the target host accept port&apos;)
+    parser.add_argument(&apos;-m&apos;, &apos;--module&apos;, type=str, choices=[&apos;tcp&apos;,&apos;udp&apos;,&apos;syn&apos;], help=&apos;specify the target host accept port&apos;)
+    args = parser.parse_args()
 
+    if args.port == None or args.module == None:
+        parser.print_help()
+        exit(1)
+
+    print args
+    print args.host
+    print args.port
+    print args.module
+
+if __name__ == &apos;__main__&apos;:
+    main()
+</code></pre>
       
     </div>
     
@@ -400,6 +466,8 @@
       
         <div class="post-tags">
           
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
             <a href="/tags/Python模块/" rel="tag"><i class="fa fa-tag"></i> Python模块</a>
           
         </div>
@@ -413,8 +481,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/04/Socket模块/" rel="next" title="TCP/UDP、Socket模块">
-                <i class="fa fa-chevron-left"></i> TCP/UDP、Socket模块
+              <a href="/2018/01/17/python执行终端命令/" rel="next" title="Python(Shell)执行终端命令模块">
+                <i class="fa fa-chevron-left"></i> Python(Shell)执行终端命令模块
               </a>
             
           </div>
@@ -423,8 +491,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/01/05/文件操作/" rel="prev" title="文件操作">
-                文件操作 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/17/Python数据存储模块/" rel="prev" title="Python数据存储模块">
+                Python数据存储模块 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -506,7 +574,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -517,7 +585,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -530,7 +598,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -563,7 +631,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pythonShell使用"><span class="nav-number">1.</span> <span class="nav-text">pythonShell使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OS模块"><span class="nav-number">2.</span> <span class="nav-text">OS模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#os-system"><span class="nav-number">2.1.</span> <span class="nav-text">os.system()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#os-popen"><span class="nav-number">2.2.</span> <span class="nav-text">os.popen()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#subprocess模块"><span class="nav-number">3.</span> <span class="nav-text">subprocess模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#subprocess-call"><span class="nav-number">3.1.</span> <span class="nav-text">subprocess.call()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subprocess-Popen"><span class="nav-number">3.2.</span> <span class="nav-text">subprocess.Popen()</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#sys"><span class="nav-number">1.</span> <span class="nav-text">sys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#optparse"><span class="nav-number">2.</span> <span class="nav-text">optparse</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、实例化参数解析对象"><span class="nav-number">2.1.</span> <span class="nav-text">1、实例化参数解析对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、设置参数"><span class="nav-number">2.2.</span> <span class="nav-text">2、设置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、解析参数"><span class="nav-number">2.3.</span> <span class="nav-text">3、解析参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、赋值参数"><span class="nav-number">2.4.</span> <span class="nav-text">4、赋值参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-number">2.5.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#坑"><span class="nav-number">2.6.</span> <span class="nav-text">坑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#argparse"><span class="nav-number">3.</span> <span class="nav-text">argparse</span></a></li></ol></div>
             
 
           </div>

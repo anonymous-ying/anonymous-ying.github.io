@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Python模块," />
+  <meta name="keywords" content="Python,Python模块," />
 
 
 
@@ -86,20 +86,20 @@
 
 
 
-<meta name="description" content="python操作文件、文件路径、文件读写、压缩">
-<meta name="keywords" content="Python模块">
+<meta name="description" content="python操作文件、文件路径、文件读写、压缩 - (sys、os、open、shutil、tarfile、zipfile)">
+<meta name="keywords" content="Python,Python模块">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文件操作">
-<meta property="og:url" content="http://yoursite.com/2018/01/05/文件操作/index.html">
+<meta property="og:title" content="Python文件操作模块">
+<meta property="og:url" content="http://yoursite.com/2018/01/17/文件操作/index.html">
 <meta property="og:site_name" content="BEHIND THE GROWTH">
-<meta property="og:description" content="python操作文件、文件路径、文件读写、压缩">
+<meta property="og:description" content="python操作文件、文件路径、文件读写、压缩 - (sys、os、open、shutil、tarfile、zipfile)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/01/05/文件操作/filemode.jpg">
-<meta property="og:updated_time" content="2018-01-07T09:35:08.610Z">
+<meta property="og:image" content="http://yoursite.com/2018/01/17/文件操作/filemode.jpg">
+<meta property="og:updated_time" content="2018-01-18T12:31:04.639Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文件操作">
-<meta name="twitter:description" content="python操作文件、文件路径、文件读写、压缩">
-<meta name="twitter:image" content="http://yoursite.com/2018/01/05/文件操作/filemode.jpg">
+<meta name="twitter:title" content="Python文件操作模块">
+<meta name="twitter:description" content="python操作文件、文件路径、文件读写、压缩 - (sys、os、open、shutil、tarfile、zipfile)">
+<meta name="twitter:image" content="http://yoursite.com/2018/01/17/文件操作/filemode.jpg">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/01/05/文件操作/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/17/文件操作/"/>
 
 
 
 
 
-  <title>文件操作 | BEHIND THE GROWTH</title>
+  <title>Python文件操作模块 | BEHIND THE GROWTH</title>
   
 
 
@@ -272,7 +272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/05/文件操作/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/17/文件操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wang YingYing">
@@ -289,7 +289,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">文件操作</h1>
+          <h1 class="post-title" itemprop="name headline">Python文件操作模块</h1>
         
 
         <div class="post-meta">
@@ -301,8 +301,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T22:55:00+08:00">
-                2018-01-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-17T00:21:16+08:00">
+                2018-01-17
               </time>
             
 
@@ -348,7 +348,7 @@
 
           
               <div class="post-description">
-                  python操作文件、文件路径、文件读写、压缩
+                  python操作文件、文件路径、文件读写、压缩 - (sys、os、open、shutil、tarfile、zipfile)
               </div>
           
 
@@ -422,7 +422,7 @@ print sys.path
 <li><em>w</em>：以写的方式打开文件(<strong>下次写覆盖</strong>),文件不存在时自动创建，不支持<em>读</em></li>
 <li><strong>a</strong>：追加模式写(不覆盖原有内容)，文件不存在时自动创建，不支持<em>读</em></li>
 <li><em>b</em>：以二进制的格式写入内容(rb,wb,ab)</li>
-<li><em>+</em>：读/写模式，让打开模式同时支持<em>读写</em><br>&nbsp;&nbsp;&nbsp;&nbsp;<em>r+</em>：读写模式打开文件，文件指针放在文件开头，不覆盖原有内容<br>&nbsp;&nbsp;&nbsp;&nbsp;<em>w+</em>：读写模式打开文件，文件指针放在文件开头，覆盖原有内容<br>&nbsp;&nbsp;&nbsp;&nbsp;<em>a+</em>：读写模式打开文件，如果文件存在，文件指针放在文件结尾，如果文件不存在，创建新文件读写<br><img src="/2018/01/05/文件操作/filemode.jpg" alt="mode"></li>
+<li><em>+</em>：读/写模式，让打开模式同时支持<em>读写</em><br>&nbsp;&nbsp;&nbsp;&nbsp;<em>r+</em>：读写模式打开文件，文件指针放在文件开头，不覆盖原有内容<br>&nbsp;&nbsp;&nbsp;&nbsp;<em>w+</em>：读写模式打开文件，文件指针放在文件开头，覆盖原有内容<br>&nbsp;&nbsp;&nbsp;&nbsp;<em>a+</em>：读写模式打开文件，如果文件存在，文件指针放在文件结尾，如果文件不存在，创建新文件读写<br><img src="/2018/01/17/文件操作/filemode.jpg" alt="mode"></li>
 </ul>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br><strong>返回值：文件对象</strong></p>
 <h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a><strong>方法</strong></h3><p><strong>读</strong></p>
@@ -499,6 +499,8 @@ for dirname,sondir,files in os.walk(PATH):
       
         <div class="post-tags">
           
+            <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          
             <a href="/tags/Python模块/" rel="tag"><i class="fa fa-tag"></i> Python模块</a>
           
         </div>
@@ -512,8 +514,8 @@ for dirname,sondir,files in os.walk(PATH):
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/05/python执行终端命令/" rel="next" title="python(Shell)执行终端命令">
-                <i class="fa fa-chevron-left"></i> python(Shell)执行终端命令
+              <a href="/2018/01/17/Python常用模块/" rel="next" title="Python模块基础">
+                <i class="fa fa-chevron-left"></i> Python模块基础
               </a>
             
           </div>
@@ -522,8 +524,8 @@ for dirname,sondir,files in os.walk(PATH):
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/01/07/迭代生成装饰递归/" rel="prev" title="迭代生成装饰递归排序">
-                迭代生成装饰递归排序 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/17/Socket模块/" rel="prev" title="TCP/UDP、Socket模块">
+                TCP/UDP、Socket模块 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -605,7 +607,7 @@ for dirname,sondir,files in os.walk(PATH):
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -616,7 +618,7 @@ for dirname,sondir,files in os.walk(PATH):
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -629,7 +631,7 @@ for dirname,sondir,files in os.walk(PATH):
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
