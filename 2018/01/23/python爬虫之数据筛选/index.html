@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="BEHIND THE GROWTH">
 <meta property="og:description" content="网络数据采集之页面元素筛选(re、lxml-xpath、bs4)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-23T17:27:37.740Z">
+<meta property="og:updated_time" content="2018-01-23T17:46:00.993Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python爬虫之数据筛选">
 <meta name="twitter:description" content="网络数据采集之页面元素筛选(re、lxml-xpath、bs4)">
@@ -363,33 +363,58 @@
       
 
       
-        <h2 id="页面元素审查"><a href="#页面元素审查" class="headerlink" title="页面元素审查"></a>页面元素审查</h2><ul>
+        <center>
+
+<h2 id="页面元素审查"><a href="#页面元素审查" class="headerlink" title="页面元素审查"></a>页面元素审查</h2><p></p></center><p></p>
+<ul>
 <li>浏览器开发者工具(F12)<br>&nbsp;&nbsp;&nbsp;&nbsp;页面元素定位<br>&nbsp;&nbsp;&nbsp;&nbsp;页面元素搜索 (ctrl+f)<br>&nbsp;&nbsp;&nbsp;&nbsp;层级的DOM结构<br>&nbsp;&nbsp;&nbsp;&nbsp;标签定义<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;元素 - div、li、a…<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;属性 - class、href、id…<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文本 - 标签内容</li>
+<li>页面是否动态加载<br>&nbsp;&nbsp;&nbsp;&nbsp;右键查看页面源码，搜索关键字</li>
 </ul>
-<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><ul>
-<li><p>符号规则<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>.</strong>：匹配除\r\n以外的任何字符<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>*</strong>：匹配前一个字符0或多次<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>+</strong>：匹配前一个字符1或者多次<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>?</strong>：匹配前一个字符0或1次<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>{N,M}</strong>：匹配前一个字符N到M次，若省略M则匹配N到无限次<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>^</strong>：匹配字符串开头<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>$</strong>：匹配字符串结尾<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>|</strong>：或，匹配左右任意一个表达式<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>[]</strong>：字符集，任意一个<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>()</strong>：匹配分组</p>
+<p><hr></p>
+<center>
+
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p></p></center><p></p>
+<h3 id="符号规则"><a href="#符号规则" class="headerlink" title="符号规则"></a>符号规则</h3><ul>
+<li><p>特殊字符<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>.</strong>：匹配除\r\n以外的任何字符<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>*</strong>：匹配前一个字符0或多次<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>+</strong>：匹配前一个字符1或者多次<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>?</strong>：匹配前一个字符0或1次<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>{N,M}</strong>：匹配前一个字符N到M次，若省略M则匹配N到无限次<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>^</strong>：匹配字符串开头<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>$</strong>：匹配字符串结尾<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>|</strong>：或，匹配左右任意一个表达式<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>[]</strong>：字符集，任意一个<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>()</strong>：匹配分组</p>
 </li>
-<li><p>特殊字符<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\d</strong>：匹配数字<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\D</strong>：匹配非数字<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\w</strong>：匹配任何字符<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\W</strong>：匹配特殊字符<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\s</strong>：匹配任何空白字符(\t\r\n\f\v)</p>
+<li><p>字符匹配模式<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\d</strong>：匹配数字<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\D</strong>：匹配非数字<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\w</strong>：匹配任何字符<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\W</strong>：匹配特殊字符<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\s</strong>：匹配任何空白字符(\t\r\n\f\v)</p>
 </li>
 <li><p>实用组合<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>.*</strong>：匹配任意多个字符<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>.*?</strong>：符合条件最少字符<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\w+|\w*</strong>：多个字符<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>\w?</strong>：一个字符</p>
 </li>
-<li><p>re模块<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>re.compile()</strong>：编译正则，返回该正则对应的对象，调用该对象对字符进行匹配，提高匹配速度</p>
+</ul>
+<h3 id="re模块"><a href="#re模块" class="headerlink" title="re模块"></a>re模块</h3><ul>
+<li><p><strong>re.compile()</strong>：编译正则，返回该正则对应的对象，调用该对象对字符进行匹配，提高匹配速度</p>
 <pre><code>reg = re.compile(pattern[,flags=0])
 reg.findall|match|serach(string[,pos[,endpos]])
-</code></pre><p><hr><br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>re.match()</strong></p>
+</code></pre></li>
+<li><p><strong>re.match()</strong></p>
 <pre><code>re.match(pattern, string, flags=0)
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从字符串开头进行匹配，如果开头匹配不成功则返回None<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回值：子组对象<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>re.search()</strong></p>
-<pre><code>re.search(pattern, string, flags=0)
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扫描整个字符串进行匹配<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回值：子组对象<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>obj.group([index])</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;输出子组对象<br><hr><br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>re.findall()</strong></p>
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从字符串开头进行匹配，如果开头匹配不成功则返回None<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回值：子组对象</p>
+</li>
+<li><strong>re.search()</strong><pre><code>re.search(pattern, string, flags=0)
+</code></pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扫描整个字符串进行匹配<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回值：子组对象</li>
+<li><p><strong>obj.group([index])</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;输出子组对象</p>
+</li>
+<li><p><strong>re.findall()</strong></p>
 <pre><code>re.findall(pattern, string, flags=0)
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扫描整个字符串进行匹配<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回值：列表<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>re.split()</strong></p>
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扫描整个字符串进行匹配<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回值：列表</p>
+</li>
+<li><p><strong>re.split()</strong></p>
 <pre><code>re.split(pattern, string, maxsplit=0, flags=0)
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正则切割字符<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回值：列表<br><hr><br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>re.sub()</strong></p>
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正则切割字符<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回值：列表</p>
+</li>
+<li><p><strong>re.sub()</strong></p>
 <pre><code>re.sub(pattern, repl, string, count=0, flags=0)
-</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;将匹配到的正则内容特换为新的内容<br>&nbsp;&nbsp;&nbsp;&nbsp;不会修改原有字符内容，必需重新声明变量赋值<br><hr><br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>flags</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>re.I</strong>：使匹配不区分大小写<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>re.S</strong>：使.匹配包括换行在内的所有字符</p>
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;将匹配到的正则内容特换为新的内容<br>&nbsp;&nbsp;&nbsp;&nbsp;不会修改原有字符内容，必需重新声明变量赋值</p>
+</li>
+<li><p><strong>flags</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>re.I</strong>：使匹配不区分大小写<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>re.S</strong>：使.匹配包括换行在内的所有字符</p>
 </li>
 </ul>
-<h2 id="lxml-xpath"><a href="#lxml-xpath" class="headerlink" title="lxml-xpath"></a>lxml-xpath</h2><ul>
+<p><hr></p>
+<center>
+
+<h2 id="lxml-xpath"><a href="#lxml-xpath" class="headerlink" title="lxml-xpath"></a>lxml-xpath</h2><p></p></center><p></p>
+<ul>
 <li>导入模块、读取HTML、查看加载内容<pre><code>from lxml import etree
 etr = etree.HTML(html)
 print etree.tostring(etr)
@@ -401,13 +426,21 @@ print etree.tostring(etr)
 //*/a/text()
 </code></pre></li>
 </ul>
-<h2 id="bs4"><a href="#bs4" class="headerlink" title="bs4"></a>bs4</h2><ul>
+<p><hr></p>
+<center>
+
+<h2 id="bs4"><a href="#bs4" class="headerlink" title="bs4"></a>bs4</h2><p></p></center><p></p>
+<ul>
 <li>模块导入、加载HTML、格式化内容<pre><code>from bs4 import BeautifulSoup as bs
 #以lxml的格式加载HTML，prettify()格式化为层级的标准方式输出
 soup = bs(html, &apos;lxml&apos;).prettify()
 print soup
 </code></pre></li>
 <li>查找元素<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>soup.find(attrs={‘attername’:’attervalue’})</strong>：标签过滤<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回匹配到的第一个元素<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>soup.findall(‘tag’,{‘attername’:’attervalue’})</strong>：标签过滤<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回匹配到的所有符合条件的元素列表<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>soup.select(tag sontag[attr=attrvalue] .classname #idname)</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用CSS选择方式进行元素筛选</li>
+</ul>
+<p><hr></p>
+<h2 id="数据入库打包"><a href="#数据入库打包" class="headerlink" title="数据入库打包"></a>数据入库打包</h2><ul>
+<li>阅读<a href="/2018/01/19/Python数据存储模块/" title="Python数据存储模块">Python数据存储模块</a></li>
 </ul>
 
       
@@ -556,7 +589,7 @@ print soup
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -589,7 +622,7 @@ print soup
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#页面元素审查"><span class="nav-number">1.</span> <span class="nav-text">页面元素审查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">2.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lxml-xpath"><span class="nav-number">3.</span> <span class="nav-text">lxml-xpath</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bs4"><span class="nav-number">4.</span> <span class="nav-text">bs4</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#页面元素审查"><span class="nav-number">1.</span> <span class="nav-text">页面元素审查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">2.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#符号规则"><span class="nav-number">2.1.</span> <span class="nav-text">符号规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re模块"><span class="nav-number">2.2.</span> <span class="nav-text">re模块</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lxml-xpath"><span class="nav-number">3.</span> <span class="nav-text">lxml-xpath</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bs4"><span class="nav-number">4.</span> <span class="nav-text">bs4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据入库打包"><span class="nav-number">5.</span> <span class="nav-text">数据入库打包</span></a></li></ol></div>
             
 
           </div>
