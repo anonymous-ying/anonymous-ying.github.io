@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="渗透测试,Web安全," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="整合一些百度的博文，整理出来的一些渗透思路集，以及实用的Q&amp;A">
+<meta name="keywords" content="渗透测试,Web安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈web渗透思路">
+<meta property="og:url" content="http://yoursite.com/2018/01/18/浅谈渗透思路/index.html">
+<meta property="og:site_name" content="BEHIND THE GROWTH">
+<meta property="og:description" content="整合一些百度的博文，整理出来的一些渗透思路集，以及实用的Q&amp;A">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-22T15:32:16.281Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈web渗透思路">
+<meta name="twitter:description" content="整合一些百度的博文，整理出来的一些渗透思路集，以及实用的Q&amp;A">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/18/浅谈渗透思路/"/>
+
+
+
+
+
+  <title>浅谈web渗透思路 | BEHIND THE GROWTH</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BEHIND THE GROWTH</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一步一个脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/18/浅谈渗透思路/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang YingYing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BEHIND THE GROWTH">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅谈web渗透思路</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-18T21:06:00+08:00">
+                2018-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/渗透测试/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  整合一些百度的博文，整理出来的一些渗透思路集，以及实用的Q&A
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>何为渗透测试：模拟黑客攻击的方法来评估计算机网络系统的安全<br>目的：了解可利用的入侵条件，增强网络/系统/服务的安全<br><strong>思路越广，漏洞越多，没有固定渗透方式</strong></p>
+<center>
+
+<h2 id="如何渗透评估网站"><a href="#如何渗透评估网站" class="headerlink" title="如何渗透评估网站"></a>如何渗透评估网站</h2><p></p></center><p></p>
+<h3 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h3><p>1、信息收集</p>
+<ul>
+<li>whois、网站源IP端口、维护者信息(邮箱姓名电话…)</li>
+<li>站点目录结构</li>
+<li>服务器系统版本、容器版本、程序版本(cms)</li>
+<li>数据库类型</li>
+<li>防火墙(waf)</li>
+<li>旁站、C段网站、二级域名</li>
+</ul>
+<p>2、漏洞扫描</p>
+<ul>
+<li>XSS,CSRF</li>
+<li>sql注入，代码执行，命令执行，远程命令执行</li>
+<li>上传</li>
+<li>越权访问</li>
+<li>目录读取，任意文件读取，下载，文件包含</li>
+<li>弱口令，暴力破解</li>
+<li>编辑器、CMS漏洞<br>等</li>
+</ul>
+<p>3、漏洞利用、提权</p>
+<ul>
+<li>脱库</li>
+<li>shell</li>
+</ul>
+<p>4、访问日志清理、后门</p>
+<ul>
+<li>window：电脑管理-&gt;事件查看器</li>
+<li>linux：/var/log</li>
+</ul>
+<center>
+
+<h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><p></p></center><p></p>
+<ul>
+<li><p><strong>sql注入写文件都有哪些函数？</strong><br>select ‘一句话’ into outfile ‘路径’<br>select ‘一句话’ into dumpfile ‘路径’</p>
+</li>
+<li><p><strong>如何拿一个网站的webshell？</strong><br>上传，后台编辑模板，sql注入写文件，命令执行，代码执行，<br>一些已经爆出的cms漏洞，比如dedecms后台可以直接建立脚本文件，wordpress上传插件包含脚本文件zip压缩包等</p>
+</li>
+<li><p><strong>如何绕过waf?</strong><br>1、关键字可以用%（只限IIS系列）。比如select，可以sel%e%ct。<br>&nbsp;&nbsp;&nbsp;&nbsp;原理：网络层waf对SEL%E%CT进行url解码后变成SEL%E%CT，匹配select失败，而进入asp.dll对SEL%E%CT进行url解码却变成select。IIS下的asp.dll文件在对asp文件后参数串进行url解码时，会直接过滤掉09-0d（09是tab键,0d是回车）、20（空格）、%(后两个字符有一个不是十六进制)字符。xss也是同理。<br>2、通杀的，内联注释。安全狗不拦截，但是安全宝、加速乐、D盾等，看到/*!/就Fack了，所以只限于安全狗。比如：/*!select*/<br>3、编码。这个方法对waf很有效果，因为一般waf会解码，但是我们利用这个特点，进行两次编码，他解了第一次但不会解第二次，就bypass了。腾讯waf、百度waf等等都可以这样bypass的。<br>…</p>
+</li>
+<li><p><strong>代码执行，文件读取，命令执行的函数都有哪些？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;代码执行：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>eval，preg_replace+/e，assert，call_user_func，call_user_func_array，create_function</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;文件读取：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>file_get_contents()，highlight_file()，fopen()，readfile()，fread()，fgetss()，fgets()，parse_ini_file()，show_source()，file()</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;命令执行：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>system(), exec(), shell_exec(), passthru() ,pcntl_exec(), popen(),proc_open()</strong></p>
+</li>
+<li><p><strong>sql注入写文件都有哪些函数？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;select ‘一句话’ into outfile ‘路径’<br>&nbsp;&nbsp;&nbsp;&nbsp;select ‘一句话’ into dumpfile ‘路径’</p>
+</li>
+<li><p><strong>mysql的网站注入，5.0以上和5.0以下有什么区别？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;5.0以下没有information_schema这个系统表，无法列表名等，只能暴力跑表名。<br>&nbsp;&nbsp;&nbsp;&nbsp;5.0以下是多用户单操作，5.0以上是多用户多操做。</p>
+</li>
+<li><p><strong>mysql注入点，用工具对目标站直接写入一句话，需要哪些条件？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;root权限以及网站的绝对路径。</p>
+</li>
+<li><p><strong>判断出网站的CMS对渗透有什么意义？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;查找网上已曝光的程序漏洞。<br>&nbsp;&nbsp;&nbsp;&nbsp;如果开源，还能下载相对应的源码进行代码审计。</p>
+</li>
+<li><p><strong>一个成熟并且相对安全的CMS，渗透时扫目录的意义？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;敏感文件、二级目录扫描<br>&nbsp;&nbsp;&nbsp;&nbsp;站长的误操作比如：网站备份的压缩文件、说明.txt、二级目录可能存放着其他站点</p>
+</li>
+<li><p><strong>目前已知哪些版本的容器有解析漏洞?</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;IIS 6.0</p>
+<pre><code>/xx.asp/xx.jpg &quot;xx.asp&quot;是文件夹名
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;IIS 7.0/7.5</p>
+<pre><code>默认Fast-CGI开启，直接在url中图片地址后面输入/1.php，会把正常图片当成php解析
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;Nginx</p>
+<pre><code>版本小于等于0.8.37，利用方法和IIS 7.0/7.5一样，Fast-CGI关闭情况下也可利用。
+空字节代码 xxx.jpg%00.php
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;Apache</p>
+<pre><code>上传的文件命名为：test.php.x1.x2.x3，Apache是从右往左判断后缀
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;lighttpd</p>
+<pre><code>xx.jpg/xx.php，不全,请小伙伴们在评论处不吝补充，谢谢！
+</code></pre></li>
+<li><p><strong>如何手工快速判断目标站是windows还是linux服务器？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;linux大小写敏感,windows大小写不敏感。</p>
+</li>
+<li><p><strong>为何一个mysql数据库的站，只有一个80端口开放？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;更改了端口，没有扫描出来。<br>&nbsp;&nbsp;&nbsp;&nbsp;站库分离。<br>&nbsp;&nbsp;&nbsp;&nbsp;3306端口不对外开放</p>
+</li>
+<li><p><strong>3389无法连接的几种情况?</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;没开放3389 端口<br>&nbsp;&nbsp;&nbsp;&nbsp;端口被修改<br>&nbsp;&nbsp;&nbsp;&nbsp;防护拦截<br>&nbsp;&nbsp;&nbsp;&nbsp;处于内网(需进行端口转发)</p>
+</li>
+<li><p><strong>access 扫出后缀为asp的数据库文件，访问乱码。如何实现到本地利用?</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;迅雷下载，直接改后缀为.mdb。</p>
+</li>
+<li><p><strong>审查上传点的元素有什么意义？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;有些站点的上传文件类型的限制是在前端实现的，这时只要增加上传类型就能突破限制了。</p>
+</li>
+<li><p><strong>后台修改管理员密码处，原密码显示为*。你觉得该怎样实现读出这个用户的密码？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;审查元素 把密码处的password属性改成text就明文显示了</p>
+</li>
+<li><p><strong>sql注入有以下两个测试选项，选一个并且阐述不选另一个的理由：</strong></p>
+<pre><code>A. demo.jsp?id=2+1 B. demo.jsp?id=2-1
+选B，在 URL 编码中 + 代表空格，可能会造成混淆
+</code></pre></li>
+<li><p><strong>以下链接存在 sql 注入漏洞，对于这个变形注入，你有什么思路？</strong></p>
+<pre><code>demo.do?DATA=AjAxNg==
+DATA有可能经过了 base64 编码再传入服务器，所以我们也要对参数进行 base64 编码才能正确完成测试
+</code></pre></li>
+<li><p><strong>发现 demo.jsp?uid=110 注入点，你有哪几种思路获取 webshell，哪种是优选？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;有写入权限的，构造联合查询语句使用using INTO OUTFILE，可以将查询的输出重定向到系统的文件中，这样去写入 WebShell<br>&nbsp;&nbsp;&nbsp;&nbsp;使用 sqlmap –os-shell 原理和上面一种相同，来直接获得一个 Shell，这样效率更高<br>通过构造联合查询语句得到网站管理员的账户和密码，然后扫后台登录后台，再在后台通过改包上传等方法上传 Shell</p>
+</li>
+<li><p><strong>CSRF 和 XSS 和 XXE 有什么区别，以及修复方式？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;XSS是跨站脚本攻击，用户提交的数据中可以构造代码来执行，从而实现窃取用户信息等攻击。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修复方式：对字符实体进行转义、使用HTTP Only来禁止JavaScript读取Cookie值、输入时校验、浏览器与Web应用端采用相同的字符编码。<br>&nbsp;&nbsp;&nbsp;&nbsp;CSRF是跨站请求伪造攻击，XSS是实现CSRF的诸多手段中的一种，是由于没有在关键操作执行时进行是否由用户自愿发起的确认。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修复方式：筛选出需要防范CSRF的页面然后嵌入Token、再次输入密码、检验Referer<br>&nbsp;&nbsp;&nbsp;&nbsp;XXE是XML外部实体注入攻击，XML中可以通过调用实体来请求本地或者远程内容，和远程文件保护类似，会引发相关安全问题，例如敏感文件读取。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修复方式：XML解析库在调用时严格禁止对外部实体的解析。</p>
+</li>
+<li><p><strong>CSRF、SSRF和重放攻击有什么区别？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;CSRF是跨站请求伪造攻击，由客户端发起<br>&nbsp;&nbsp;&nbsp;&nbsp;SSRF是服务器端请求伪造，由服务器发起<br>&nbsp;&nbsp;&nbsp;&nbsp;重放攻击是将截获的数据包进行重放，达到身份认证等目的</p>
+</li>
+<li><p><strong>说出至少三种业务逻辑漏洞，以及修复方式？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;密码找回漏洞中存在密码允许暴力破解、存在通用型找回凭证、可以跳过验证步骤、找回凭证可以拦包获取等方式来通过厂商提供的密码找回功能来得到密码<br>&nbsp;&nbsp;&nbsp;&nbsp;身份认证漏洞中最常见的是会话固定攻击和 Cookie 仿冒，只要得到 Session 或 Cookie 即可伪造用户身份<br>&nbsp;&nbsp;&nbsp;&nbsp;验证码漏洞中存在验证码允许暴力破解、验证码可以通过 Javascript 或者改包的方法来进行绕过</p>
+</li>
+</ul>
+<p><hr></p>
+<center>
+
+<h2 id="OWASP-TOP10"><a href="#OWASP-TOP10" class="headerlink" title="OWASP TOP10"></a>OWASP TOP10</h2><p></p></center><br>1、注入<br>&nbsp;&nbsp;&nbsp;&nbsp;将不受信任的数据作为命令或查询的一部分发送到解析器时，会产生诸如SQL注入、OS注入和LDAP注入的注入缺陷。攻击者的恶意数据可以诱使解析器在没有适当授权的情况下执行非预期命令或访问数据。<p></p>
+<p>2、失效的身份认证和会话管理<br>&nbsp;&nbsp;&nbsp;&nbsp;认证和会话管理相关的应用程序功能往往得不到正确实施，导致了攻击者可以破坏密码，密钥，会话令牌或实施漏洞冒充其他用户身份</p>
+<p>3、敏感信息暴露<br>&nbsp;&nbsp;&nbsp;&nbsp;信息泄漏，加密输出传输和存储</p>
+<p>4、XML外部实体<br>&nbsp;&nbsp;&nbsp;&nbsp;外部实体可以通过URI文件处理器、在Windows服务器上未修复的SMB文件共享、内部端口扫描、远程代码执行来实施拒绝服务攻击</p>
+<p>5、失效的访问控制(平行|垂直越权)<br>&nbsp;&nbsp;&nbsp;&nbsp;未对通过身份验证的用户实施恰当的访问控制。攻击者可以利用这些缺陷访问未经授权的功能或数据</p>
+<p>6、错误的安全配置<br>&nbsp;&nbsp;&nbsp;&nbsp;手动配置错误、临时配置（或根本不配置）、不安全的默认配置、开启S3 bucket、不当的HTTP 标头配置、包含敏感信息的错误信息、未及时修补或升级（或根本不修补和升级）系统、框架、依赖项和组件。</p>
+<p>7、XSS<br>&nbsp;&nbsp;&nbsp;&nbsp;网站页面被写入恶意的代码块</p>
+<p>8、不安全的反序列化<br>&nbsp;&nbsp;&nbsp;&nbsp;当应用程序接收到恶意的序列化对象时，会出现不安全的反序列缺陷。不安全的反序列化会导致远程代码执行。即使反序列化缺陷不会导致远程代码执行，也可以重播、篡改或删除系列化对象以欺骗用户、进行注入攻击和提升权限。</p>
+<p>9、应用已知脆弱的组件<br>&nbsp;&nbsp;&nbsp;&nbsp;部署一些存在漏洞的CMS</p>
+<p>10、不足的日志记录和监控</p>
+<center>
+
+<h2 id="渗透测试流程"><a href="#渗透测试流程" class="headerlink" title="渗透测试流程"></a>渗透测试流程</h2><p></p></center><br><strong>测试整体过程</strong><br>1、前期交互以及拟定测试计划<br>&nbsp;&nbsp;&nbsp;&nbsp;确保在不影响业务系统正常运行的环境下测试<br>&nbsp;&nbsp;&nbsp;&nbsp;确定测试的范围、目标、限制条件、授权协议<br>2、信息收集<br>3、威胁建模<br>4、漏洞分析<br>5、渗透攻击<br>6、后渗透攻击<br>7、整理评估<p></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/渗透测试/" rel="tag"><i class="fa fa-tag"></i> 渗透测试</a>
+          
+            <a href="/tags/Web安全/" rel="tag"><i class="fa fa-tag"></i> Web安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/18/Web安全测试之文件上传-文件包含/" rel="next" title="Web安全测试之文件上传/文件包含">
+                <i class="fa fa-chevron-left"></i> Web安全测试之文件上传/文件包含
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/18/Linux基础/" rel="prev" title="Linux基础">
+                Linux基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Wang YingYing" />
+            
+              <p class="site-author-name" itemprop="name">Wang YingYing</p>
+              <p class="site-description motion-element" itemprop="description">自己选的路，跪着是走不完的</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何渗透评估网站"><span class="nav-number">1.</span> <span class="nav-text">如何渗透评估网站</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本步骤"><span class="nav-number">1.1.</span> <span class="nav-text">基本步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q-amp-A"><span class="nav-number">1.2.</span> <span class="nav-text">Q&amp;A</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OWASP-TOP10"><span class="nav-number">2.</span> <span class="nav-text">OWASP TOP10</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#渗透测试流程"><span class="nav-number">3.</span> <span class="nav-text">渗透测试流程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang YingYing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </div>
+
+<!--  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

