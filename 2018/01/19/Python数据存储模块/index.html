@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="BEHIND THE GROWTH">
 <meta property="og:description" content="关系与非关系数据库区别，Python数据存储，序列化数据存储 - (mysql、mongodb、csv、json、pickle)，Python对网页图片音视频下载">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-23T07:21:51.937Z">
+<meta property="og:updated_time" content="2018-01-24T04:36:51.119Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python数据存储模块">
 <meta name="twitter:description" content="关系与非关系数据库区别，Python数据存储，序列化数据存储 - (mysql、mongodb、csv、json、pickle)，Python对网页图片音视频下载">
@@ -398,7 +398,7 @@ Durability(持久性)：一旦事物提交成功，数据修改是永存的
 
 <h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><p></p></center><br><strong>关系型数据库，python模块：MySQLdb</strong>，注意模块名大小写<p></p>
 <ul>
-<li><strong>阅读Mysql基础操作</strong>，掌握SQL语句忽略</li>
+<li><strong>阅读<a href="/2018/01/07/Mysql基础/" title="Mysql基础">Mysql基础</a></strong>，掌握SQL语句忽略</li>
 <li>创建Mysql-API对象<br><strong>conn = MySQLdb.connect(host=’HOST’, user=’USER’, passwd=’PWD’[,db=’USEDB’])</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;USEDB必需事先存在，可以为空<br>&nbsp;&nbsp;&nbsp;&nbsp;返回值：connect对象</li>
 <li>创建游标(类似MysqlShell)<br><strong>cur = conn.cursor()</strong></li>
 <li>执行SQL语句<br><strong>cur.execute(‘SQL’)</strong>：一次执行一条SQL语句<br>&nbsp;&nbsp;&nbsp;&nbsp;SQL语句不用分号结束<br><strong>cur.executemany(‘SQL’,LIST(VALUETUPLE))</strong>：一次执行多条语句<br>&nbsp;&nbsp;&nbsp;&nbsp;参数二：元组形式的列表，元组为SQL对应的VALUE<br><strong>cur.commit()</strong>：当执行多条语句，或者执行一个事物的时候使用，进行数据库刷新</li>

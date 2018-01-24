@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="BEHIND THE GROWTH">
 <meta property="og:description" content="整合一些百度的博文，整理出来的一些渗透思路集，以及实用的Q&amp;A">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-22T15:32:16.281Z">
+<meta property="og:updated_time" content="2018-01-24T04:35:41.985Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈web渗透思路">
 <meta name="twitter:description" content="整合一些百度的博文，整理出来的一些渗透思路集，以及实用的Q&amp;A">
@@ -400,10 +400,7 @@
 
 <h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><p></p></center><p></p>
 <ul>
-<li><p><strong>sql注入写文件都有哪些函数？</strong><br>select ‘一句话’ into outfile ‘路径’<br>select ‘一句话’ into dumpfile ‘路径’</p>
-</li>
-<li><p><strong>如何拿一个网站的webshell？</strong><br>上传，后台编辑模板，sql注入写文件，命令执行，代码执行，<br>一些已经爆出的cms漏洞，比如dedecms后台可以直接建立脚本文件，wordpress上传插件包含脚本文件zip压缩包等</p>
-</li>
+<li><strong>如何拿一个网站的webshell？</strong><br>上传，后台编辑模板，sql注入写文件，命令执行，代码执行，<br>一些已经爆出的cms漏洞，比如dedecms后台可以直接建立脚本文件，wordpress上传插件包含脚本文件zip压缩包等</li>
 <li><p><strong>如何绕过waf?</strong><br>1、关键字可以用%（只限IIS系列）。比如select，可以sel%e%ct。<br>&nbsp;&nbsp;&nbsp;&nbsp;原理：网络层waf对SEL%E%CT进行url解码后变成SEL%E%CT，匹配select失败，而进入asp.dll对SEL%E%CT进行url解码却变成select。IIS下的asp.dll文件在对asp文件后参数串进行url解码时，会直接过滤掉09-0d（09是tab键,0d是回车）、20（空格）、%(后两个字符有一个不是十六进制)字符。xss也是同理。<br>2、通杀的，内联注释。安全狗不拦截，但是安全宝、加速乐、D盾等，看到/*!/就Fack了，所以只限于安全狗。比如：/*!select*/<br>3、编码。这个方法对waf很有效果，因为一般waf会解码，但是我们利用这个特点，进行两次编码，他解了第一次但不会解第二次，就bypass了。腾讯waf、百度waf等等都可以这样bypass的。<br>…</p>
 </li>
 <li><p><strong>代码执行，文件读取，命令执行的函数都有哪些？</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;代码执行：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>eval，preg_replace+/e，assert，call_user_func，call_user_func_array，create_function</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;文件读取：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>file_get_contents()，highlight_file()，fopen()，readfile()，fread()，fgetss()，fgets()，parse_ini_file()，show_source()，file()</strong><br>&nbsp;&nbsp;&nbsp;&nbsp;命令执行：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>system(), exec(), shell_exec(), passthru() ,pcntl_exec(), popen(),proc_open()</strong></p>
